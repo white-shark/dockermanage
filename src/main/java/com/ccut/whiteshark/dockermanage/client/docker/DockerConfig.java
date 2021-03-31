@@ -6,7 +6,7 @@ import com.github.dockerjava.core.DockerClientConfig;
 /**
  * @author whiteshark
  */
-public class Config {
+public class DockerConfig {
     private static String registryUser = "whiteshark520";
     private static String registryPass = "zx12as45q.";
     private static String registryMail = "727789136@qq.com";

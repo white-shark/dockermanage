@@ -20,10 +20,8 @@ import static org.hamcrest.Matchers.equalTo;
 public class HttpClient {
 
 
-    public DockerClient client(){
-        Config dockerConfig = new Config();
+    public DockerClient client(DockerConfig dockerConfig){
         DockerClientConfig config = dockerConfig.config();
-
         DockerHttpClient httpClient = new ApacheDockerHttpClient.Builder()
                 .dockerHost(config.getDockerHost())
                 .sslConfig(config.getSSLConfig())
