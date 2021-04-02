@@ -6,90 +6,90 @@ package com.ccut.whiteshark.dockermanage.entity;
  * @Version 1.0
  */
 public class HostEntity {
-    private String SystemTime;
-    private String Id;
-    private Integer ContainersRunning;
-    private String OperatingSystem;
-    private String Architecture;
-    private String ServerVersion;
-    private String MemTotal;
-    private Integer NCpu;
+    private String systemTime;
+    private String id;
+    private Integer containersRunning;
+    private String operatingSystem;
+    private String architecture;
+    private String serverVersion;
+    private String memTotal;
+    private Integer cpu;
 
     public String getSystemTime() {
-        return SystemTime;
+        return systemTime;
     }
 
     public void setSystemTime(String systemTime) {
-        SystemTime = systemTime;
+        this.systemTime = systemTime;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public Integer getContainersRunning() {
-        return ContainersRunning;
+        return containersRunning;
     }
 
     public void setContainersRunning(Integer containersRunning) {
-        ContainersRunning = containersRunning;
+        this.containersRunning = containersRunning;
     }
 
     public String getOperatingSystem() {
-        return OperatingSystem;
+        return operatingSystem;
     }
 
     public void setOperatingSystem(String operatingSystem) {
-        OperatingSystem = operatingSystem;
+        this.operatingSystem = operatingSystem;
     }
 
     public String getArchitecture() {
-        return Architecture;
+        return architecture;
     }
 
     public void setArchitecture(String architecture) {
-        Architecture = architecture;
+        this.architecture = architecture;
     }
 
     public String getServerVersion() {
-        return ServerVersion;
+        return serverVersion;
     }
 
     public void setServerVersion(String serverVersion) {
-        ServerVersion = serverVersion;
+        this.serverVersion = serverVersion;
     }
 
     public String getMemTotal() {
-        return MemTotal;
+        return memTotal;
     }
 
     public void setMemTotal(String memTotal) {
-        MemTotal = memTotal;
+        this.memTotal = memTotal;
     }
 
-    public Integer getNCpu() {
-        return NCpu;
+    public Integer getCpu() {
+        return cpu;
     }
 
-    public void setNCpu(Integer NCpu) {
-        this.NCpu = NCpu;
+    public void setCpu(Integer cpu) {
+        this.cpu = cpu;
     }
 
     @Override
     public String toString() {
-        return "HostInfo{" +
-                "SystemTime='" + SystemTime + '\'' +
-                ", Id='" + Id + '\'' +
-                ", ContainersRunning=" + ContainersRunning +
-                ", OperatingSystem='" + OperatingSystem + '\'' +
-                ", Architecture='" + Architecture + '\'' +
-                ", ServerVersion='" + ServerVersion + '\'' +
-                ", MemTotal=" + MemTotal +
-                ", NCpu=" + NCpu +
+        return "HostEntity{" +
+                "systemTime='" + systemTime + '\'' +
+                ", id='" + id + '\'' +
+                ", containersRunning=" + containersRunning +
+                ", operatingSystem='" + operatingSystem + '\'' +
+                ", architecture='" + architecture + '\'' +
+                ", serverVersion='" + serverVersion + '\'' +
+                ", memTotal='" + memTotal + '\'' +
+                ", cpu=" + cpu +
                 '}';
     }
 }

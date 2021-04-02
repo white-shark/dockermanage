@@ -4,6 +4,7 @@ import com.ccut.whiteshark.dockermanage.api.HostInfo;
 import com.ccut.whiteshark.dockermanage.entity.HostEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 
@@ -12,6 +13,7 @@ import java.text.DecimalFormat;
  * @Date 2021/4/2 16:47
  * @Version 1.0
  */
+@Service
 public class HostInfoService {
     public JSONArray getHostInfo(JSONArray array){
         HostInfo hostInfo = new HostInfo();
@@ -27,7 +29,7 @@ public class HostInfoService {
             entity.setId(jsonObject.getString("ID"));
             DecimalFormat df = new DecimalFormat("0.00");
             entity.setMemTotal(df.format(jsonObject.getInt("MemTotal")/1024));
-            entity.setNCpu(jsonObject.getInt("NCPU"));
+            entity.setCpu(jsonObject.getInt("NCPU"));
             entity.setSystemTime(jsonObject.getString("SystemTime").split("\\.")[0]);
             entity.setOperatingSystem(jsonObject.getString("OperatingSystem"));
             entity.setServerVersion(jsonObject.getString("ServerVersion"));

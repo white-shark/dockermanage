@@ -3,6 +3,7 @@ package com.ccut.whiteshark.dockermanage.service;
 import com.ccut.whiteshark.dockermanage.api.Stats;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 
@@ -11,6 +12,7 @@ import java.text.DecimalFormat;
  * @Date 2021/4/2 16:54
  * @Version 1.0
  */
+@Service
 public class StatsInfoService {
     public JSONArray getStats(String ip, String port, String[] id){
         JSONArray res = new JSONArray();
