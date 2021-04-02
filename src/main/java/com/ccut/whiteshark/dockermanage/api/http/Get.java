@@ -11,8 +11,8 @@ import java.io.IOException;
  * @version 1.0
  * @date 2021/3/31 10:52 下午
  */
-public class GetInfo {
-    public String getInfo(String url){
+public class Get {
+    public static String getInfo(String url){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .get()

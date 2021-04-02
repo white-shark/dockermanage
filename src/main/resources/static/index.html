@@ -25,10 +25,23 @@
     <script src="assets/js/theme.js"></script>
     <div class="am-g tpl-g">
 
+        <!-- 风格切换 -->
+        <div class="tpl-skiner">
+            <div class="tpl-skiner-toggle am-icon-cog">
+            </div>
+            <div class="tpl-skiner-content">
+                <div class="tpl-skiner-content-title">
+                    选择主题
+                </div>
+                <div class="tpl-skiner-content-bar">
+                    <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                    <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                </div>
+            </div>
+        </div>
         <!--公共部分引入-->
         <div id="public">
         </div>
-        <ifream src="/public.html"></ifream>
 
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
@@ -36,8 +49,8 @@
             <div class="container-fluid am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 部件首页 <small>Amaze UI</small></div>
-                        <p class="page-header-description">Amaze UI 含近 20 个 CSS 组件、20 余 JS 组件，更有多个包含不同主题的 Web 组件。</p>
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 首页 <small>Index</small></div>
+                        <p class="page-header-description">您可以看到您的主机的一些基本信息。</p>
                     </div>
                     <div class="am-u-lg-3 tpl-index-settings-button">
                         <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
@@ -49,7 +62,7 @@
             <div class="row-content am-cf">
                 <div class="row  am-cf">
                     <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                        <div class="widget widget-purple am-cf">
+                        <div class="widget widget-primary am-cf">
                             <div class="widget-statistic-body">
                                 Docker主机数量
                             </div>
@@ -60,7 +73,7 @@
                                 <div class="widget-statistic-description">
                                     本季度比去年多收入 <strong>2593元</strong> 人民币
                                 </div>
-                                <span class="widget-statistic-icon am-icon-support"></span>
+                                <span class="widget-statistic-icon am-icon-home"></span>
                             </div>
                         </div>
                     </div>
@@ -76,7 +89,7 @@
                                 <div class="widget-statistic-description">
                                     本季度比去年多收入 <strong>2593元</strong> 人民币
                                 </div>
-                                <span class="widget-statistic-icon am-icon-credit-card-alt"></span>
+                                <span class="widget-statistic-icon am-icon-linux"></span>
                             </div>
                         </div>
                     </div>
@@ -92,7 +105,7 @@
                                 <div class="widget-statistic-description">
                                     本季度比去年多收入 <strong>2593元</strong> 人民币
                                 </div>
-                                <span class="widget-statistic-icon am-icon-support"></span>
+                                <span class="widget-statistic-icon am-icon-warning"></span>
                             </div>
                         </div>
                     </div>
@@ -101,105 +114,119 @@
                 <div class="row am-cf">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12 widget-margin-bottom-lg">
 
-                        <div class="widget am-cf widget-body-lg">
+                        <section data-am-widget="accordion" class="am-accordion am-accordion-default" data-am-accordion='{ "multiple": true }'>
 
-                            <div class="widget-body  am-fr">
-                                <div class="am-scrollable-horizontal ">
-                                    <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black " id="example-r">
-                                        <thead>
-                                        <tr>
-                                            <th>活跃主机</th>
-                                            <th>版本</th>
-                                            <th>操作系统</th>
-                                            <th>CPU</th>
-                                            <th>内存</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="gradeX">
-                                            <td>新加坡大数据初创公司 Latize 获 150 万美元风险融资</td>
-                                            <td>张鹏飞</td>
-                                            <td>2016-09-26</td>
-                                            <td>
-                                                <div class="tpl-table-black-operation">
-                                                    <a href="javascript:;">
-                                                        <i class="am-icon-pencil"></i> 编辑
-                                                    </a>
-                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                        <i class="am-icon-trash"></i> 删除
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="even gradeC">
-                                            <td>自拍的“政治角色”：观众背对希拉里自拍合影表示“支持”</td>
-                                            <td>天纵之人</td>
-                                            <td>2016-09-26</td>
-                                            <td>
-                                                <div class="tpl-table-black-operation">
-                                                    <a href="javascript:;">
-                                                        <i class="am-icon-pencil"></i> 编辑
-                                                    </a>
-                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                        <i class="am-icon-trash"></i> 删除
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <td>关于创新管理，我想和你当面聊聊。</td>
-                                            <td>王宽师</td>
-                                            <td>2016-09-26</td>
-                                            <td>
-                                                <div class="tpl-table-black-operation">
-                                                    <a href="javascript:;">
-                                                        <i class="am-icon-pencil"></i> 编辑
-                                                    </a>
-                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                        <i class="am-icon-trash"></i> 删除
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="even gradeC">
-                                            <td>究竟是趋势带动投资，还是投资引领趋势？</td>
-                                            <td>着迷</td>
-                                            <td>2016-09-26</td>
-                                            <td>
-                                                <div class="tpl-table-black-operation">
-                                                    <a href="javascript:;">
-                                                        <i class="am-icon-pencil"></i> 编辑
-                                                    </a>
-                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                        <i class="am-icon-trash"></i> 删除
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="even gradeC">
-                                            <td>Docker领域再添一员，网易云发布“蜂巢”，加入云计算之争</td>
-                                            <td>醉里挑灯看键</td>
-                                            <td>2016-09-26</td>
-                                            <td>
-                                                <div class="tpl-table-black-operation">
-                                                    <a href="javascript:;">
-                                                        <i class="am-icon-pencil"></i> 编辑
-                                                    </a>
-                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                        <i class="am-icon-trash"></i> 删除
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                            <dl class="am-accordion-item am-active am-disabled">
+                                <dt class="am-accordion-title">
+                                    活跃主机列表
+                                </dt>
+                                <dd class="am-accordion-bd am-collapse am-in">
+                                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
+                                    <div class="am-accordion-content">
+                                        <div class="widget am-cf widget-body-lg">
+
+                                            <div class="widget-body  am-fr">
+                                                <div class="am-scrollable-horizontal ">
+                                                    <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black " id="example-r">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>活跃主机</th>
+                                                            <th>版本</th>
+                                                            <th>操作系统</th>
+                                                            <th>CPU</th>
+                                                            <th>内存</th>
+                                                            <th>操作</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr class="gradeX">
+                                                            <td>新加坡大数据初创公司 Latize 获 150 万美元风险融资</td>
+                                                            <td>张鹏飞</td>
+                                                            <td>2016-09-26</td>
+                                                            <td>
+                                                                <div class="tpl-table-black-operation">
+                                                                    <a href="javascript:;">
+                                                                        <i class="am-icon-pencil"></i> 编辑
+                                                                    </a>
+                                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
+                                                                        <i class="am-icon-trash"></i> 删除
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="even gradeC">
+                                                            <td>自拍的“政治角色”：观众背对希拉里自拍合影表示“支持”</td>
+                                                            <td>天纵之人</td>
+                                                            <td>2016-09-26</td>
+                                                            <td>
+                                                                <div class="tpl-table-black-operation">
+                                                                    <a href="javascript:;">
+                                                                        <i class="am-icon-pencil"></i> 编辑
+                                                                    </a>
+                                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
+                                                                        <i class="am-icon-trash"></i> 删除
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="gradeX">
+                                                            <td>关于创新管理，我想和你当面聊聊。</td>
+                                                            <td>王宽师</td>
+                                                            <td>2016-09-26</td>
+                                                            <td>
+                                                                <div class="tpl-table-black-operation">
+                                                                    <a href="javascript:;">
+                                                                        <i class="am-icon-pencil"></i> 编辑
+                                                                    </a>
+                                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
+                                                                        <i class="am-icon-trash"></i> 删除
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="even gradeC">
+                                                            <td>究竟是趋势带动投资，还是投资引领趋势？</td>
+                                                            <td>着迷</td>
+                                                            <td>2016-09-26</td>
+                                                            <td>
+                                                                <div class="tpl-table-black-operation">
+                                                                    <a href="javascript:;">
+                                                                        <i class="am-icon-pencil"></i> 编辑
+                                                                    </a>
+                                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
+                                                                        <i class="am-icon-trash"></i> 删除
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="even gradeC">
+                                                            <td>Docker领域再添一员，网易云发布“蜂巢”，加入云计算之争</td>
+                                                            <td>醉里挑灯看键</td>
+                                                            <td>2016-09-26</td>
+                                                            <td>
+                                                                <div class="tpl-table-black-operation">
+                                                                    <a href="javascript:;">
+                                                                        <i class="am-icon-pencil"></i> 编辑
+                                                                    </a>
+                                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
+                                                                        <i class="am-icon-trash"></i> 删除
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
 
 
-                                        <!-- more data -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                                                        <!-- more data -->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </section>
+
 
                     </div>
 
@@ -207,31 +234,46 @@
                 </div>
 
                 <div class="row am-cf">
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-4 widget-margin-bottom-lg">
-                        <div class="widget am-cf">
-                            <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">专用服务器负载</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
-                            </div>
-                            <div class="widget-body widget-body-md am-fr">
+                    <div class="am-u-md-4">
+                        <section data-am-widget="accordion" class="am-accordion am-accordion-default" data-am-accordion='{ "multiple": true }'>
 
-                                <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
-                                <div class="am-progress">
-                                    <div class="am-progress-bar" style="width: 15%"></div>
-                                </div>
-                                <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
-                                <div class="am-progress">
-                                    <div class="am-progress-bar  am-progress-bar-warning" style="width: 75%"></div>
-                                </div>
-                                <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
-                                <div class="am-progress">
-                                    <div class="am-progress-bar am-progress-bar-danger" style="width: 35%"></div>
-                                </div>
-                            </div>
-                        </div>
+                            <dl class="am-accordion-item am-active">
+                                <dt class="am-accordion-title">
+                                    我就这样告别山下的家
+                                </dt>
+                                <dd class="am-accordion-bd am-collapse am-in">
+                                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
+                                    <div class="am-accordion-content">
+                                        <div class="widget am-cf">
+                                            <div class="widget-head am-cf">
+                                                <div class="widget-title am-fl">专用服务器负载</div>
+                                                <div class="widget-function am-fr">
+                                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                                </div>
+                                            </div>
+                                            <div class="widget-body widget-body-md am-fr">
+
+                                                <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
+                                                <div class="am-progress">
+                                                    <div class="am-progress-bar" style="width: 15%"></div>
+                                                </div>
+                                                <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
+                                                <div class="am-progress">
+                                                    <div class="am-progress-bar  am-progress-bar-warning" style="width: 75%"></div>
+                                                </div>
+                                                <div class="am-progress-title">CPU Load <span class="am-fr am-progress-title-more">28% / 100%</span></div>
+                                                <div class="am-progress">
+                                                    <div class="am-progress-bar am-progress-bar-danger" style="width: 35%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </section>
                     </div>
+
+
                 </div>
 
             </div>

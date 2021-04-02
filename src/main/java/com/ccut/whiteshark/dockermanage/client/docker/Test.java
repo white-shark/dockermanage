@@ -1,10 +1,13 @@
 package com.ccut.whiteshark.dockermanage.client.docker;
 
-import com.ccut.whiteshark.dockermanage.api.http.GetInfo;
+import ch.qos.logback.classic.Logger;
+import com.ccut.whiteshark.dockermanage.api.http.Get;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.Info;
-import com.github.dockerjava.core.DockerClientImpl;
 import org.json.JSONObject;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import java.text.ParseException;
 
 /**
  * @author WhiteShark
@@ -12,16 +15,20 @@ import org.json.JSONObject;
  * @date 2021/3/27 5:56 下午
  */
 public class Test {
-    public static void main(String[] args) {
+    private static final Logger logger = null;
+    public static void main(String[] args) throws ParseException {
 //        DockerConfig config = new DockerConfig();
 //        HttpClient httpClient = new HttpClient();
 //        DockerClient dockerClient = httpClient.client(config);
 //        Info info = dockerClient.infoCmd().exec();
 //        JSONObject jsonObject = new JSONObject(dockerClient.versionCmd().exec());
-//        System.out.println(jsonObject.toString());
-        String url = "http://192.168.124.16:2375/containers/json";
-        GetInfo getInfo = new GetInfo();
-        String result = getInfo.getInfo(url);
-        System.out.println(result);
+//        System.out.println("version:"+jsonObject.toString());
+//        JSONObject jsonObject7 = new JSONObject(dockerClient.infoCmd().exec());
+//        System.out.println("info"+jsonObject7.toString());
+
+        Integer a = 15326425;
+        float b = a / 1000;
+        System.out.println();
+
     }
 }
