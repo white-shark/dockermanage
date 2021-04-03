@@ -45,17 +45,17 @@
               </span>
 
 
-                <form id="SignUp" name="SignUp" class="am-form tpl-form-line-form">
+                <form id="signup" name="signup" class="am-form tpl-form-line-form">
                     <div class="am-form-group">
-                        <input type="email" class="tpl-form-input" id="email" placeholder="邮箱">
+                        <input type="email" class="tpl-form-input" id="email" name="email" placeholder="邮箱">
                     </div>
 
                     <div class="am-form-group">
-                        <input type="text" class="tpl-form-input" id="name" placeholder="用户名">
+                        <input type="text" class="tpl-form-input" id="name" name="name" placeholder="用户名">
                     </div>
 
                     <div class="am-form-group">
-                        <input type="password" class="tpl-form-input" id="password" placeholder="请输入密码">
+                        <input type="password" class="tpl-form-input" id="password" name="password" placeholder="请输入密码">
                     </div>
 
                     <div class="am-form-group">
@@ -73,7 +73,7 @@
 
                     <div class="am-form-group">
 
-                        <button type="button" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">提交</button>
+                        <button type="button" onclick="SignIn()" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">提交</button>
 
                     </div>
                 </form>
@@ -84,15 +84,17 @@
     <script src="assets/js/app.js"></script>
     <script>
         function SignIn(){
-            const confirmPassword = document.getElementById('confirm-password');
-            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const password = document.getElementById('password').value;
+            console.log(password);
+            console.log(confirmPassword);
             if (confirmPassword === password){
                 $.ajax({
                     //几个参数需要注意一下
                     type: "POST",//方法类型
-                    dataType: "json",//预期服务器返回的数据类型
+                    dataType: "text",//预期服务器返回的数据类型
                     url: "/user/signup" ,//url
-                    data: $('#SignUp').serialize(),
+                    data: $('#signup').serialize(),
                     success: function (data) {
                         console.log(data);//打印服务端返回的数据(调试用)
                         if (data=="index") {
