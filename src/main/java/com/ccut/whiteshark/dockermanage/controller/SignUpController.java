@@ -1,6 +1,8 @@
 package com.ccut.whiteshark.dockermanage.controller;
 
+import com.ccut.whiteshark.dockermanage.entity.UserInfo;
 import com.ccut.whiteshark.dockermanage.entity.UserLogin;
+import com.ccut.whiteshark.dockermanage.repository.UserInfoRepository;
 import com.ccut.whiteshark.dockermanage.repository.UserLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,6 +23,8 @@ public class SignUpController {
 
     @Autowired
     UserLoginRepository userLoginRepository;
+    @Autowired
+    UserInfoRepository userInfoRepository;
 
     @PostMapping(value = "/user/signup")
     public String signUp(@RequestParam String name,@RequestParam String email,@RequestParam String password){
@@ -35,6 +39,11 @@ public class SignUpController {
         login.setEmail(email);
         login.setPassword(password);
         userLoginRepository.save(login);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserName(name);
+        userInfo.setEmail(email);
+        userInfo.setDockerHub("https://index.docker.io/v1/");
+        userInfoRepository.save(userInfo);
         return "index";
     }
 

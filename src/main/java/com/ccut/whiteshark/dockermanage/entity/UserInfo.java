@@ -16,6 +16,8 @@ public class UserInfo {
     @Id
     private String userName;
     @Column
+    private String email;
+    @Column
     private String host;
     @Column
     private String port;
@@ -54,8 +56,17 @@ public class UserInfo {
         this.dockerHub = dockerHub;
     }
 
-    public UserInfo(String userName, String host, String port, String dockerHub) {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public UserInfo(String userName, String email, String host, String port, String dockerHub) {
         this.userName = userName;
+        this.email = email;
         this.host = host;
         this.port = port;
         this.dockerHub = dockerHub;
@@ -68,6 +79,7 @@ public class UserInfo {
     public String toString() {
         return "UserInfo{" +
                 "userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
                 ", host='" + host + '\'' +
                 ", port='" + port + '\'' +
                 ", dockerHub='" + dockerHub + '\'' +

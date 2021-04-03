@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="/assets/layui/css/layui.css">
     <script src="assets/js/jquery.min.js"></script>
 
 </head>
@@ -40,39 +41,24 @@
         <div class="tpl-login">
             <div class="tpl-login-content">
                 <div class="tpl-login-logo">
-
                 </div>
 
-
-
-                <form class="am-form tpl-form-line-form">
+                <form id="signin" name="signin" class="am-form tpl-form-line-form">
                     <div class="am-form-group">
-                        <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入账号">
-
+                        <input type="text" class="tpl-form-input" id="name" name="name" placeholder="请输入账号">
                     </div>
 
                     <div class="am-form-group">
-                        <input type="password" class="tpl-form-input" id="user-name" placeholder="请输入密码">
-
+                        <input type="password" class="tpl-form-input" id="password" name="password" placeholder="请输入密码">
                     </div>
+
                     <div class="am-form-group tpl-login-remember-me">
                         <input id="remember-me" type="checkbox">
-                        <label for="remember-me">
-       
-                        记住密码
-                         </label>
-
+                        <label for="remember-me">记住密码</label>
                     </div>
 
-
-
-
-
-
                     <div class="am-form-group">
-
-                        <button type="button" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">提交</button>
-
+                        <button type="button" onclick="SignIn()" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">登陆</button>
                     </div>
                 </form>
             </div>
@@ -80,6 +66,33 @@
     </div>
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/app.js"></script>
+
+    <script src="/assets/layui/layui.js"></script>
+    <script>
+        const layer = layui.layer, form = layui.form;
+        function SignIn(){
+
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "text",//预期服务器返回的数据类型
+                url: "/user/signin" ,//url
+                data: $('#signin').serialize(),
+                success: function (data) {
+                    console.log(data);//打印服务端返回的数据(调试用)
+                    if (data==="index") {
+                        layer.msg('欢迎登陆');
+                        setTimeout(function () {
+                            window.location.href='index.html';
+                        },1000);
+                    }
+                    else if (data==="error"){
+                        layer.msg('密码错误');
+                    }
+                },
+            });
+        }
+    </script>
 
 </body>
 
