@@ -19,6 +19,8 @@ public class UserLogin {
     private String email;
     @Column
     private String password;
+    @Column
+    private String authority;
 
     public String getUserName() {
         return userName;
@@ -44,10 +46,19 @@ public class UserLogin {
         this.password = password;
     }
 
-    public UserLogin(String userName, String email, String password) {
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public UserLogin(String userName, String email, String password, String authority) {
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.authority = authority;
     }
 
     public UserLogin() {
@@ -59,6 +70,7 @@ public class UserLogin {
                 "userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", authority='" + authority + '\'' +
                 '}';
     }
 }

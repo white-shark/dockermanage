@@ -23,6 +23,8 @@ public class UserInfo {
     private String port;
     @Column
     private String dockerHub;
+    @Column
+    private String authority;
 
     public String getUserName() {
         return userName;
@@ -64,12 +66,21 @@ public class UserInfo {
         this.email = email;
     }
 
-    public UserInfo(String userName, String email, String host, String port, String dockerHub) {
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public UserInfo(String userName, String email, String host, String port, String dockerHub, String authority) {
         this.userName = userName;
         this.email = email;
         this.host = host;
         this.port = port;
         this.dockerHub = dockerHub;
+        this.authority = authority;
     }
 
     public UserInfo() {
@@ -83,6 +94,7 @@ public class UserInfo {
                 ", host='" + host + '\'' +
                 ", port='" + port + '\'' +
                 ", dockerHub='" + dockerHub + '\'' +
+                ", authority='" + authority + '\'' +
                 '}';
     }
 }

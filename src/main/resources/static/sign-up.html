@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="/assets/layui/css/layui.css">
     <script src="assets/js/jquery.min.js"></script>
 
 </head>
@@ -82,13 +83,23 @@
     </div>
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="/assets/layui/layui.js"></script>
     <script>
+
+        const layer = layui.layer, form = layui.form;
+
         function SignIn(){
             const confirmPassword = document.getElementById('confirm-password').value;
             const password = document.getElementById('password').value;
-            console.log(password);
-            console.log(confirmPassword);
-            if (confirmPassword === password){
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            if (email === ''){
+                layer.msg('请输入邮箱');
+            }
+            else if (name === ''){
+                layer.msg('请输入用户名');
+            }
+            else if (confirmPassword === password && password !==''){
                 $.ajax({
                     //几个参数需要注意一下
                     type: "POST",//方法类型
@@ -97,13 +108,23 @@
                     data: $('#signup').serialize(),
                     success: function (data) {
                         console.log(data);//打印服务端返回的数据(调试用)
-                        if (data=="index") {
-                            window.location.href='/login.html';
+                        if (data==="index") {
+                            layer.msg('注册成功');
+                            setTimeout(function () {
+                                window.location.href='/login.html';
+                            },1000);
                         }
-                        else if (data=="error"){
+                        else if (data==="exists"){
+                            layer.msg('用户名已存在');
+                        }
+                        else {
+                            layer.msg('Error');
                         }
                     },
                 });
+            }
+            else {
+                layer.msg('Error');
             }
         }
     </script>

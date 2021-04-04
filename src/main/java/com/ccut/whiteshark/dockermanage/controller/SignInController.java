@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author WhiteShark
  * @version 1.0
@@ -19,11 +21,11 @@ public class SignInController {
     UserLoginRepository userLoginRepository;
 
     @PostMapping(value = "/user/signin")
-    public String signIn(@RequestParam String name, @RequestParam String password){
-        System.out.println(name);
+    public String signIn(@RequestParam String name, @RequestParam String password, HttpSession session){
         UserLogin login = userLoginRepository.findByUserName(name);
         if (login.getPassword().equals(password)){
-            System.out.println("success");
+            session.setAttribute("userName",login.getUserName());
+            session.setAttribute("authority",login.getAuthority());
             return "index";
         }
         else {

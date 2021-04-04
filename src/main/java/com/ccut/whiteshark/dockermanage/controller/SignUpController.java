@@ -31,17 +31,19 @@ public class SignUpController {
         ArrayList<UserLogin> list = userLoginRepository.findAllByUserName(name);
         for (UserLogin userLogin : list) {
             if (userLogin.getUserName().equals(name)) {
-                return "用户名已存在";
+                return "exists";
             }
         }
         UserLogin login = new UserLogin();
         login.setUserName(name);
         login.setEmail(email);
         login.setPassword(password);
+        login.setAuthority("user");
         userLoginRepository.save(login);
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(name);
         userInfo.setEmail(email);
+        userInfo.setAuthority("user");
         userInfo.setDockerHub("https://index.docker.io/v1/");
         userInfoRepository.save(userInfo);
         return "index";
