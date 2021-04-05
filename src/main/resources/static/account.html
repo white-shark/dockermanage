@@ -94,7 +94,7 @@
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">自适应表格</div>
+                                <div class="widget-title am-fl">服务器列表</div>
                                 <div class="widget-function am-fr">
                                     <a href="javascript:;" class="am-icon-cog"></a>
                                 </div>
@@ -104,9 +104,9 @@
                                 <table width="100%" class="am-table am-table-compact tpl-table-black " id="example-r">
                                     <thead>
                                     <tr>
-                                        <th>文章标题</th>
-                                        <th>作者</th>
-                                        <th>时间</th>
+                                        <th>服务器名</th>
+                                        <th>IP</th>
+                                        <th>端口</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -141,67 +141,6 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="gradeX">
-                                        <td>请问有没有amazeui 分享插件</td>
-                                        <td>王宽师</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>关于input输入框的问题</td>
-                                        <td>着迷</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有没有发现官网上的下载包不好用</td>
-                                        <td>醉里挑灯看键</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="even gradeC">
-                                        <td>我建议WEB版本文件引入问题</td>
-                                        <td>罢了</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
                                     <!-- more data -->
                                     </tbody>
                                 </table>
@@ -214,7 +153,7 @@
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">线条表单</div>
+                                <div class="widget-title am-fl">增加服务器</div>
                                 <div class="widget-function am-fr">
                                     <a href="javascript:;" class="am-icon-cog"></a>
                                 </div>
@@ -222,19 +161,28 @@
                             <div class="widget-body am-fr">
 
                                 <form class="am-form tpl-form-line-form">
+
                                     <div class="am-form-group">
-                                        <label for="ip1" class="am-u-sm-3 am-form-label">IP地址 <span class="tpl-form-line-small-title">IP Address</span></label>
+                                        <label for="host" class="am-u-sm-3 am-form-label">服务器名 <span class="tpl-form-line-small-title">Host Name</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="ip1" name="ip1" placeholder="IP地址">
+                                            <input type="text" class="tpl-form-input" id="host" name="host" placeholder="服务器名">
+                                            <small>请填写您的服务器名称。</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="ip" class="am-u-sm-3 am-form-label">IP地址 <span class="tpl-form-line-small-title">IP Address</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" id="ip" name="ip" placeholder="IP地址">
                                             <small>请填写您的服务器IP地址。</small>
                                         </div>
                                     </div>
 
                                     <div class="am-form-group">
-                                        <label for="port1" class="am-u-sm-3 am-form-label">端口 <span class="tpl-form-line-small-title">Port</span></label>
+                                        <label for="port" class="am-u-sm-3 am-form-label">端口 <span class="tpl-form-line-small-title">Port</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="port1" name="port1" placeholder="端口" data-am-datepicker="">
-                                            <small>发布时间为必填</small>
+                                            <input type="text" class="tpl-form-input" id="port" name="port" placeholder="端口" data-am-datepicker="">
+                                            <small>DockerApi端口</small>
                                         </div>
                                     </div>
 
