@@ -18,10 +18,6 @@ public class UserInfo {
     @Column
     private String email;
     @Column
-    private String host;
-    @Column
-    private String port;
-    @Column
     private String dockerHub;
     @Column
     private String authority;
@@ -34,21 +30,6 @@ public class UserInfo {
         this.userName = userName;
     }
 
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public String getPort() {
-        return port;
-    }
-
-    public void setPort(String port) {
-        this.port = port;
-    }
 
     public String getDockerHub() {
         return dockerHub;
@@ -74,11 +55,9 @@ public class UserInfo {
         this.authority = authority;
     }
 
-    public UserInfo(String userName, String email, String host, String port, String dockerHub, String authority) {
+    public UserInfo(String userName, String email, String dockerHub, String authority) {
         this.userName = userName;
         this.email = email;
-        this.host = host;
-        this.port = port;
         this.dockerHub = dockerHub;
         this.authority = authority;
     }
@@ -91,8 +70,6 @@ public class UserInfo {
         return "UserInfo{" +
                 "userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
-                ", host='" + host + '\'' +
-                ", port='" + port + '\'' +
                 ", dockerHub='" + dockerHub + '\'' +
                 ", authority='" + authority + '\'' +
                 '}';

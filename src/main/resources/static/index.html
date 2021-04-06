@@ -67,11 +67,11 @@
                                 Docker主机数量
                             </div>
                             <div class="widget-statistic-body">
-                                <div class="widget-statistic-value">
-                                    3
+                                <div id="totalHost" class="widget-statistic-value">
+
                                 </div>
                                 <div class="widget-statistic-description">
-                                    本季度比去年多收入 <strong>2593元</strong> 人民币
+                                    您的主机总数
                                 </div>
                                 <span class="widget-statistic-icon am-icon-home"></span>
                             </div>
@@ -83,11 +83,11 @@
                                 Docker健康主机数
                             </div>
                             <div class="widget-statistic-body">
-                                <div class="widget-statistic-value">
-                                    2
+                                <div id="activeHost" class="widget-statistic-value">
+
                                 </div>
                                 <div class="widget-statistic-description">
-                                    本季度比去年多收入 <strong>2593元</strong> 人民币
+                                    接口请求成功主机总数
                                 </div>
                                 <span class="widget-statistic-icon am-icon-linux"></span>
                             </div>
@@ -99,11 +99,11 @@
                                 Docker异常主机数
                             </div>
                             <div class="widget-statistic-body">
-                                <div class="widget-statistic-value">
-                                    0
+                                <div  id="deadHost" class="widget-statistic-value">
+
                                 </div>
                                 <div class="widget-statistic-description">
-                                    本季度比去年多收入 <strong>2593元</strong> 人民币本季度比去年多收入 <strong>2593元</strong> 人民币
+                                    接口请求失败主机数量
                                 </div>
                                 <span class="widget-statistic-icon am-icon-warning"></span>
                             </div>
@@ -113,7 +113,6 @@
 
                 <div class="row am-cf">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12 widget-margin-bottom-lg">
-
                         <section data-am-widget="accordion" class="am-accordion am-accordion-default" data-am-accordion='{ "multiple": true }'>
 
                             <dl class="am-accordion-item am-active am-disabled">
@@ -130,90 +129,19 @@
                                                     <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black " id="example-r">
                                                         <thead>
                                                         <tr>
-                                                            <th>活跃主机</th>
+                                                            <th>主机ID</th>
                                                             <th>版本</th>
+                                                            <th>运行容器数量</th>
                                                             <th>操作系统</th>
+                                                            <th>CPU架构</th>
                                                             <th>CPU</th>
                                                             <th>内存</th>
+                                                            <th>系统时间</th>
                                                             <th>操作</th>
                                                         </tr>
                                                         </thead>
-                                                        <tbody>
-                                                        <tr class="gradeX">
-                                                            <td>新加坡大数据初创公司 Latize 获 150 万美元风险融资</td>
-                                                            <td>张鹏飞</td>
-                                                            <td>2016-09-26</td>
-                                                            <td>
-                                                                <div class="tpl-table-black-operation">
-                                                                    <a href="javascript:;">
-                                                                        <i class="am-icon-pencil"></i> 编辑
-                                                                    </a>
-                                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                                        <i class="am-icon-trash"></i> 删除
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="even gradeC">
-                                                            <td>自拍的“政治角色”：观众背对希拉里自拍合影表示“支持”</td>
-                                                            <td>天纵之人</td>
-                                                            <td>2016-09-26</td>
-                                                            <td>
-                                                                <div class="tpl-table-black-operation">
-                                                                    <a href="javascript:;">
-                                                                        <i class="am-icon-pencil"></i> 编辑
-                                                                    </a>
-                                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                                        <i class="am-icon-trash"></i> 删除
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="gradeX">
-                                                            <td>关于创新管理，我想和你当面聊聊。</td>
-                                                            <td>王宽师</td>
-                                                            <td>2016-09-26</td>
-                                                            <td>
-                                                                <div class="tpl-table-black-operation">
-                                                                    <a href="javascript:;">
-                                                                        <i class="am-icon-pencil"></i> 编辑
-                                                                    </a>
-                                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                                        <i class="am-icon-trash"></i> 删除
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="even gradeC">
-                                                            <td>究竟是趋势带动投资，还是投资引领趋势？</td>
-                                                            <td>着迷</td>
-                                                            <td>2016-09-26</td>
-                                                            <td>
-                                                                <div class="tpl-table-black-operation">
-                                                                    <a href="javascript:;">
-                                                                        <i class="am-icon-pencil"></i> 编辑
-                                                                    </a>
-                                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                                        <i class="am-icon-trash"></i> 删除
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="even gradeC">
-                                                            <td>Docker领域再添一员，网易云发布“蜂巢”，加入云计算之争</td>
-                                                            <td>醉里挑灯看键</td>
-                                                            <td>2016-09-26</td>
-                                                            <td>
-                                                                <div class="tpl-table-black-operation">
-                                                                    <a href="javascript:;">
-                                                                        <i class="am-icon-pencil"></i> 编辑
-                                                                    </a>
-                                                                    <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                                        <i class="am-icon-trash"></i> 删除
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                        <tbody id="hostList">
+
 
 
                                                         <!-- more data -->
@@ -226,8 +154,6 @@
                                 </dd>
                             </dl>
                         </section>
-
-
                     </div>
 
 
@@ -303,8 +229,51 @@
     <!--公共部分引入-->
     <script>
         $('#public').load('public.html',function(responseTxt,statusTxt,xhr){
-            console.log('responseTxt,statusTxt,xhr')
         })
+
+    </script>
+    <script>
+        getInfo();
+        function getInfo(){
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/getIndexInfo" ,//url
+                async:false,
+                success: function (data) {
+                    console.log(data);
+                    console.log(data.totalHost);
+                    $('#totalHost').append(data.totalHost);
+                    $('#activeHost').append(data.activeHost);
+                    $('#deadHost').append(data.deadHost);
+                    var list = data.hostList;
+                    for (var i = 0;i < list.length;i++){
+                        $('#hostList').append('<tr class="gradeX">\n' +
+                            '<td>'+ list[i].ID +'</td>\n' +
+                            '<td>'+ list[i].ServerVersion +'</td>\n' +
+                            '<td>'+ list[i].ContainersRunning +'</td>\n' +
+                            '<td>'+ list[i].OperatingSystem +'</td>\n' +
+                            '<td>'+ list[i].Architecture +'</td>\n' +
+                            '<td>'+ list[i].NCPU +'</td>\n' +
+                            '<td>'+ list[i].MemTotal +'</td>\n' +
+                            '<td>'+ list[i].SystemTime +'</td>\n' +
+                            '<td>\n' +
+                            '<div class="tpl-table-black-operation">\n' +
+                            '<a href="javascript:;">\n' +
+                            '<i class="am-icon-pencil"></i> 编辑\n' +
+                            '</a>\n' +
+                            '<a href="javascript:;" class="tpl-table-black-operation-del">\n' +
+                            '<i class="am-icon-trash"></i> 删除\n' +
+                            '</a>\n' +
+                            '</div>\n' +
+                            '</td>\n' +
+                            '</tr>')
+                    }
+                },
+            });
+        }
+
     </script>
 
 </body>

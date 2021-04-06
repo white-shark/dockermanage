@@ -2,11 +2,15 @@ package com.ccut.whiteshark.dockermanage.service;
 
 import com.ccut.whiteshark.dockermanage.api.HostInfo;
 import com.ccut.whiteshark.dockermanage.entity.HostEntity;
+import com.ccut.whiteshark.dockermanage.entity.UserHost;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * @Author WeiPeng
@@ -15,25 +19,38 @@ import java.text.DecimalFormat;
  */
 @Service
 public class HostInfoService {
-    public JSONArray getHostInfo(JSONArray array){
+    private static final Logger logger = LoggerFactory.getLogger(HostInfoService.class);
+    public JSONArray getHostInfo(List<UserHost> list){
         HostInfo hostInfo = new HostInfo();
-        JSONObject hosts;
         JSONArray result = new JSONArray();
-        for (int i = 0;i < array.length();i++){
-            hosts = array.getJSONObject(i);
-            String res = hostInfo.getHostInfo(hosts.getString("ip"),hosts.getString("port"));
-            JSONObject jsonObject = new JSONObject(res);
-            HostEntity entity = new HostEntity();
-            entity.setArchitecture(jsonObject.getString("Architecture"));
-            entity.setContainersRunning(jsonObject.getInt("ContainersRunning"));
-            entity.setId(jsonObject.getString("ID"));
-            DecimalFormat df = new DecimalFormat("0.00");
-            entity.setMemTotal(df.format(jsonObject.getInt("MemTotal")/1024));
-            entity.setCpu(jsonObject.getInt("NCPU"));
-            entity.setSystemTime(jsonObject.getString("SystemTime").split("\\.")[0]);
-            entity.setOperatingSystem(jsonObject.getString("OperatingSystem"));
-            entity.setServerVersion(jsonObject.getString("ServerVersion"));
-            result.put(entity);
+        for (int i = 0;i < list.size();i++){
+            UserHost userHost = list.get(i);
+            try {
+                String res = hostInfo.getHostInfo(userHost.getHost(),userHost.getPort());
+                JSONObject jsonObject = new JSONObject(res);
+                HostEntity entity = new HostEntity();
+                //CPU架构
+                entity.setArchitecture(jsonObject.getString("Architecture"));
+                //运行的容器数量
+                entity.setContainersRunning(jsonObject.getInt("ContainersRunning"));
+                //主机ID
+                entity.setId(jsonObject.getString("ID"));
+                DecimalFormat df = new DecimalFormat("0.00");
+                //内存总数
+                entity.setMemTotal(df.format(jsonObject.getInt("MemTotal")/1024));
+                //CPU数量
+                entity.setCpu(jsonObject.getInt("NCPU"));
+                //系统时间
+                entity.setSystemTime(jsonObject.getString("SystemTime").split("\\.")[0]);
+                //操作系统
+                entity.setOperatingSystem(jsonObject.getString("OperatingSystem"));
+                //docker版本
+                entity.setServerVersion(jsonObject.getString("ServerVersion"));
+                result.put(entity);
+            }catch (Exception e){
+                logger.warn("主机:" + userHost.getHost() + ",请求失败");
+            }
+
         }
         return result;
     }

@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="/assets/layui/css/layui.css">
+    <script src="/assets/layui/layui.js"></script>
+
 </head>
 
 <body data-type="index">
@@ -82,7 +85,7 @@
 
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                            <button type="button" onclick="setHub()" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
                                         </div>
                                     </div>
                                 </form>
@@ -110,37 +113,7 @@
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr class="gradeX">
-                                        <td>Amaze UI 模式窗口</td>
-                                        <td>张鹏飞</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有适配微信小程序的计划吗</td>
-                                        <td>天纵之人</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <tbody id="hostList">
                                     <!-- more data -->
                                     </tbody>
                                 </table>
@@ -160,7 +133,7 @@
                             </div>
                             <div class="widget-body am-fr">
 
-                                <form class="am-form tpl-form-line-form">
+                                <form id="increaseHost" class="am-form tpl-form-line-form">
 
                                     <div class="am-form-group">
                                         <label for="host" class="am-u-sm-3 am-form-label">服务器名 <span class="tpl-form-line-small-title">Host Name</span></label>
@@ -173,7 +146,7 @@
                                     <div class="am-form-group">
                                         <label for="ip" class="am-u-sm-3 am-form-label">IP地址 <span class="tpl-form-line-small-title">IP Address</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="ip" name="ip" placeholder="IP地址">
+                                            <input type="text" class="tpl-form-input" id="ipAddress" name="ipAddress" placeholder="IP地址">
                                             <small>请填写您的服务器IP地址。</small>
                                         </div>
                                     </div>
@@ -188,7 +161,7 @@
 
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                            <button type="button" onclick="increaseHost()" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
                                         </div>
                                     </div>
                                 </form>
@@ -212,6 +185,7 @@
     </script>
 
     <script>
+        const layer = layui.layer, form = layui.form;
         getHub();
         function getHub(){
             $.ajax({
@@ -221,6 +195,81 @@
                 url: "/user/getDockerHub" ,//url
                 success: function (data) {
                     document.getElementById('dockerhub').value = data;
+                },
+            });
+        }
+    </script>
+    <script>
+        function setHub(){
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "text",//预期服务器返回的数据类型
+                url: "/user/setDockerHub" ,//url
+                data: $('#dockerhub').serialize(),
+                success: function (data) {
+                    if (data === "success"){
+                        layer.msg('保存成功');
+                    }
+                    else {
+                        layer.msg('保存失败');
+                    }
+                },
+            });
+        }
+    </script>
+
+    <script>
+        function increaseHost(){
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "text",//预期服务器返回的数据类型
+                url: "/user/increaseHost" ,//url
+                data: $('#increaseHost').serialize(),
+                success: function (data) {
+                    if (data === "success"){
+                        layer.msg('保存成功', {
+                            icon: 1,
+                            time: 20000, //20s后自动关闭
+                            btn: ['确定'],
+                            yes: function () {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                    else {
+                        layer.msg('保存失败');
+                    }
+                },
+            });
+        }
+    </script>
+    <script>
+        getHostList();
+        function getHostList(){
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/user/getHostList" ,//url
+                async:false,
+                success: function (data) {
+                    var hostList = $("#hostList");
+                    for (var i = 0;i < data.length;i++){
+                        hostList.append('<tr class="gradeX">' +
+                            '<td>'+ data[i].hostName +'</td>' +
+                            '<td>'+ data[i].host +'</td>' +
+                            '<td>'+ data[i].port +'</td>' +
+                            '<td>' +
+                            '<div class="tpl-table-black-operation">' +
+                            '<a href="javascript:;" class="tpl-table-black-operation-del">' +
+                            '<i class="am-icon-trash"></i> 删除' +
+                            '</a>' +
+                            '</div>' +
+                            '</td>' +
+                            '</tr>')
+                    }
                 },
             });
         }
