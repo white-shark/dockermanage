@@ -211,6 +211,21 @@
         })
     </script>
 
+    <script>
+        getHub();
+        function getHub(){
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "text",//预期服务器返回的数据类型
+                url: "/user/getDockerHub" ,//url
+                success: function (data) {
+                    document.getElementById('dockerhub').value = data;
+                },
+            });
+        }
+    </script>
+
 </body>
 
 </html>
