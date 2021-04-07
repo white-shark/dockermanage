@@ -248,6 +248,7 @@
     <script>
         getHostList();
         function getHostList(){
+
             $.ajax({
                 //几个参数需要注意一下
                 type: "POST",//方法类型
@@ -263,7 +264,7 @@
                             '<td>'+ data[i].port +'</td>' +
                             '<td>' +
                             '<div class="tpl-table-black-operation">' +
-                            '<a href="javascript:;" class="tpl-table-black-operation-del">' +
+                            '<a href="javascript:;" onclick="delHost(' + data[i].id + ')" class="tpl-table-black-operation-del">' +
                             '<i class="am-icon-trash"></i> 删除' +
                             '</a>' +
                             '</div>' +
@@ -272,6 +273,37 @@
                     }
                 },
             });
+        }
+    </script>
+
+    <script>
+        function delHost(id){
+            layer.msg('确定删除？', {
+                icon: 2,
+                time: 20000, //20s后自动关闭
+                btn: ['确定'],
+                yes: function () {
+                    $.ajax({
+                        //几个参数需要注意一下
+                        type: "POST",//方法类型
+                        dataType: "text",//预期服务器返回的数据类型
+                        data:{'id':id},
+                        url: "/user/delete/host" ,//url
+                        success: function (data) {
+                            console.log('data:'+data)
+                            if (data === 'success'){
+                                window.location.reload();
+                            }
+                            else {
+                                layer.msg('删除失败');
+                            }
+                        }
+
+                    });
+
+                }
+            });
+
         }
     </script>
 

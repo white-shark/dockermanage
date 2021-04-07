@@ -9,7 +9,8 @@ import com.ccut.whiteshark.dockermanage.api.http.Get;
  */
 public class HostInfo {
     public String getHostInfo(String ip, String port){
-        String url = ip + ":" + port + "/info";
+        String url ="http://" + ip + ":" + port + "/info";
+        System.out.println("url:" + url);
         return Get.getInfo(url);
     }
 }

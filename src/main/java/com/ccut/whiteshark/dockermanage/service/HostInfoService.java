@@ -46,7 +46,9 @@ public class HostInfoService {
                 entity.setOperatingSystem(jsonObject.getString("OperatingSystem"));
                 //docker版本
                 entity.setServerVersion(jsonObject.getString("ServerVersion"));
-                result.put(entity);
+                JSONObject jsonObject1;
+                jsonObject1 = new JSONObject(entity);
+                result.put(jsonObject1);
             }catch (Exception e){
                 logger.warn("主机:" + userHost.getHost() + ",请求失败");
             }

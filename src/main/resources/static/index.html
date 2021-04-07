@@ -137,7 +137,6 @@
                                                             <th>CPU</th>
                                                             <th>内存</th>
                                                             <th>系统时间</th>
-                                                            <th>操作</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody id="hostList">
@@ -248,26 +247,17 @@
                     $('#activeHost').append(data.activeHost);
                     $('#deadHost').append(data.deadHost);
                     var list = data.hostList;
+                    console.log(list[0]);
                     for (var i = 0;i < list.length;i++){
                         $('#hostList').append('<tr class="gradeX">\n' +
-                            '<td>'+ list[i].ID +'</td>\n' +
-                            '<td>'+ list[i].ServerVersion +'</td>\n' +
-                            '<td>'+ list[i].ContainersRunning +'</td>\n' +
-                            '<td>'+ list[i].OperatingSystem +'</td>\n' +
-                            '<td>'+ list[i].Architecture +'</td>\n' +
-                            '<td>'+ list[i].NCPU +'</td>\n' +
-                            '<td>'+ list[i].MemTotal +'</td>\n' +
-                            '<td>'+ list[i].SystemTime +'</td>\n' +
-                            '<td>\n' +
-                            '<div class="tpl-table-black-operation">\n' +
-                            '<a href="javascript:;">\n' +
-                            '<i class="am-icon-pencil"></i> 编辑\n' +
-                            '</a>\n' +
-                            '<a href="javascript:;" class="tpl-table-black-operation-del">\n' +
-                            '<i class="am-icon-trash"></i> 删除\n' +
-                            '</a>\n' +
-                            '</div>\n' +
-                            '</td>\n' +
+                            '<td>'+ list[i].id +'</td>\n' +
+                            '<td>'+ list[i].serverVersion +'</td>\n' +
+                            '<td>'+ list[i].containersRunning +'</td>\n' +
+                            '<td>'+ list[i].operatingSystem +'</td>\n' +
+                            '<td>'+ list[i].architecture +'</td>\n' +
+                            '<td>'+ list[i].cpu +'</td>\n' +
+                            '<td>'+ list[i].memTotal +'</td>\n' +
+                            '<td>'+ list[i].systemTime +'</td>\n' +
                             '</tr>')
                     }
                 },

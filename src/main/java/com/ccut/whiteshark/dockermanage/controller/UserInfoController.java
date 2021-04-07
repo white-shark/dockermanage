@@ -69,4 +69,16 @@ public class UserInfoController {
         list = userHostRepository.findAllByUserName((String) session.getAttribute("userName"));
         return list;
     }
+
+    @PostMapping(value = "/user/delete/host")
+    public String delHost(@RequestParam Integer id){
+        System.out.println("id:"+ id);
+        try {
+            userHostRepository.deleteById(id);
+            return "success";
+        }catch (Exception e){
+            logger.warn("删除失败");
+            return "error";
+        }
+    }
 }
