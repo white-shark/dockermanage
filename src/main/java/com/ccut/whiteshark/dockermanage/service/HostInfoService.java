@@ -37,7 +37,7 @@ public class HostInfoService {
                 entity.setId(jsonObject.getString("ID"));
                 DecimalFormat df = new DecimalFormat("0.00");
                 //内存总数
-                entity.setMemTotal(df.format(jsonObject.getInt("MemTotal")/1024));
+                entity.setMemTotal(df.format(jsonObject.getInt("MemTotal")/1024/1024));
                 //CPU数量
                 entity.setCpu(jsonObject.getInt("NCPU"));
                 //系统时间

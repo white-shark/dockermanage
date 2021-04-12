@@ -111,6 +111,52 @@
                     </div>
                 </div>
 
+<!--                <div class="row am-cf">-->
+<!--                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12 widget-margin-bottom-lg">-->
+<!--                        <section data-am-widget="accordion" class="am-accordion am-accordion-default" data-am-accordion='{ "multiple": true }'>-->
+
+<!--                            <dl class="am-accordion-item am-active am-disabled">-->
+<!--                                <dt class="am-accordion-title">-->
+<!--                                    活跃主机列表-->
+<!--                                </dt>-->
+<!--                                <dd class="am-accordion-bd am-collapse am-in">-->
+<!--                                    &lt;!&ndash; 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 &ndash;&gt;-->
+<!--                                    <div class="am-accordion-content">-->
+<!--                                        <div class="widget am-cf widget-body-lg">-->
+
+<!--                                            <div class="widget-body  am-fr">-->
+<!--                                                <div class="am-scrollable-horizontal ">-->
+<!--                                                    <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black " id="example-r">-->
+<!--                                                        <thead>-->
+<!--                                                        <tr>-->
+<!--                                                            <th>主机ID</th>-->
+<!--                                                            <th>版本</th>-->
+<!--                                                            <th>容器数量</th>-->
+<!--                                                            <th>操作系统</th>-->
+<!--                                                            <th>CPU架构</th>-->
+<!--                                                            <th>CPU</th>-->
+<!--                                                            <th>内存</th>-->
+<!--                                                            <th>系统时间</th>-->
+<!--                                                        </tr>-->
+<!--                                                        </thead>-->
+<!--                                                        <tbody >-->
+
+
+
+<!--                                                        &lt;!&ndash; more data &ndash;&gt;-->
+<!--                                                        </tbody>-->
+<!--                                                    </table>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </dd>-->
+<!--                            </dl>-->
+<!--                        </section>-->
+<!--                    </div>-->
+
+
+<!--                </div>-->
 
                 <div class="row">
 
@@ -244,7 +290,7 @@
                 type: "POST",//方法类型
                 dataType: "json",//预期服务器返回的数据类型
                 url: "/getIndexInfo" ,//url
-                async:true,
+                async:false,
                 success: function (data) {
                     console.log(data);
                     console.log(data.totalHost);

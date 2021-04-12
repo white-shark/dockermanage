@@ -1,9 +1,11 @@
 package com.ccut.whiteshark.dockermanage.client.docker;
 
 import ch.qos.logback.classic.Logger;
+import com.ccut.whiteshark.dockermanage.api.ImageUtils;
 import com.ccut.whiteshark.dockermanage.api.http.Get;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.Info;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -26,9 +28,17 @@ public class Test {
 //        JSONObject jsonObject7 = new JSONObject(dockerClient.infoCmd().exec());
 //        System.out.println("info"+jsonObject7.toString());
 
-        Integer a = 15326425;
-        float b = a / 1000;
-        System.out.println();
+//        Integer a = 15326425;
+//        float b = a / 1000;
+//        System.out.println();
+
+        ImageUtils utils = new ImageUtils();
+        JSONArray array = new JSONArray(utils.getInamgeList("192.168.124.16","2375"));
+        JSONObject jsonObject = array.getJSONObject(0);
+        JSONArray array1 = jsonObject.getJSONArray("RepoTags");
+        System.out.println(array1.toString());
+        System.out.println(array1.get(0));
+
 
     }
 }

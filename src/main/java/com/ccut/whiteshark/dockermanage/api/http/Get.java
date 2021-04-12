@@ -3,6 +3,8 @@ package com.ccut.whiteshark.dockermanage.api.http;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2021/3/31 10:52 下午
  */
 public class Get {
+    private static final Logger logger = LoggerFactory.getLogger(Get.class);
     public static String getInfo(String url){
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(3, TimeUnit.SECONDS)
@@ -29,7 +32,7 @@ public class Get {
             Response response = client.newCall(request).execute();
             return response.body().string();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warn("请求" + url + "失败！");
         }
 
         return url;
