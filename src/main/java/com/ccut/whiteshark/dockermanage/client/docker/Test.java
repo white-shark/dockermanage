@@ -31,10 +31,10 @@ import java.util.List;
 public class Test {
     private static final Logger logger = null;
     public static void main(String[] args) throws ParseException, IOException {
-        DockerConfig config = new DockerConfig();
-        HttpClient httpClient = new HttpClient();
-        DockerClient dockerClient = httpClient.client(config);
-        Info info = dockerClient.infoCmd().exec();
+//        DockerConfig config = new DockerConfig();
+//        HttpClient httpClient = new HttpClient();
+//        DockerClient dockerClient = httpClient.client(config);
+//        Info info = dockerClient.infoCmd().exec();
 
 //        ListImagesCmd client;
 //        client = dockerClient.listImagesCmd();
@@ -46,65 +46,66 @@ public class Test {
 
 //        System.out.println(dockerClient.listImagesCmd().withShowAll(true).exec());
 //        dockerClient.authCmd().exec();
-        MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("username","whiteshark520");
-        jsonObject.put("password","zx12as45q.");
-        RequestBody body = RequestBody.create(mediaType,jsonObject.toString());
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
-        Request request = new Request.Builder()
-                .post(body)
-                .url("https://hub.docker.com/v2/users/login")
-                .build();
-        Response response = client.newCall(request).execute();
-        System.out.println(response.body().string());
+//        MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("username","whiteshark520");
+//        jsonObject.put("password","zx12as45q.");
+//        RequestBody body = RequestBody.create(mediaType,jsonObject.toString());
+//        OkHttpClient client = new OkHttpClient().newBuilder().build();
+//        Request request = new Request.Builder()
+//                .post(body)
+//                .url("https://hub.docker.com/v2/users/login")
+//                .build();
+//        Response response = client.newCall(request).execute();
+//        System.out.println(response.body().string());
+//
+//        dockerClient.removeImageCmd("busybox").exec();
+//        System.out.println("删除完毕");
+//
+//        DockerClient dockerClient1 = DockerClientBuilder.getInstance("tcp://192.168.124.16:2375").build();
+//        AuthConfig authConfig = new AuthConfig();
+//        authConfig.withUsername("whiteshark520").withPassword("zx12as45q.").withEmail("727789136@qq.com");
+//        dockerClient.pullImageCmd("tomcat:latest").exec(new ResultCallback<PullResponseItem>() {
+//            @Override
+//            public void onStart(Closeable closeable) {
+//                System.out.println("开始下载!");
+//            }
+//
+//            @Override
+//            public void onNext(PullResponseItem pullResponseItem) {
+//                System.out.println(pullResponseItem.getStatus());
+//            }
+//
+//            @Override
+//            public void onError(Throwable throwable) {
+//                throwable.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                System.out.println("下载完毕!");
+//            }
+//
+//            @Override
+//            public void close() throws IOException {
+//
+//            }
+//        });
+//
+//
+//
+//        dockerClient.pullImageCmd("busybox:latest").exec(new PullImageResultCallback()).awaitSuccess();
+//        System.out.println("下载完毕!");
+//
 
-        dockerClient.removeImageCmd("busybox").exec();
-        System.out.println("删除完毕");
 
-        DockerClient dockerClient1 = DockerClientBuilder.getInstance("tcp://192.168.124.16:2375").build();
-        AuthConfig authConfig = new AuthConfig();
-        authConfig.withUsername("whiteshark520").withPassword("zx12as45q.").withEmail("727789136@qq.com");
-        dockerClient.pullImageCmd("tomcat:latest").exec(new ResultCallback<PullResponseItem>() {
-            @Override
-            public void onStart(Closeable closeable) {
-                System.out.println("开始下载!");
-            }
-
-            @Override
-            public void onNext(PullResponseItem pullResponseItem) {
-                System.out.println(pullResponseItem.getStatus());
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                throwable.printStackTrace();
-            }
-
-            @Override
-            public void onComplete() {
-                System.out.println("下载完毕!");
-            }
-
-            @Override
-            public void close() throws IOException {
-
-            }
-        });
-
-
-
-        dockerClient.pullImageCmd("busybox:latest").exec(new PullImageResultCallback()).awaitSuccess();
-        System.out.println("下载完毕!");
-
-
-
-//        ImageUtils utils = new ImageUtils();
-//        JSONArray array = new JSONArray(utils.getInamgeList("192.168.124.16","2375"));
-//        JSONObject jsonObject = array.getJSONObject(0);
-//        JSONArray array1 = jsonObject.getJSONArray("RepoTags");
-//        System.out.println(array1.toString());
-//        System.out.println(array1.get(0));
+        ImageUtils utils = new ImageUtils();
+        JSONArray array = new JSONArray(utils.getInamgeList("192.168.124.16","2375"));
+        System.out.println(array.toString());
+        JSONObject jsonObject = array.getJSONObject(0);
+        JSONArray array1 = jsonObject.getJSONArray("RepoTags");
+        System.out.println(array1.toString());
+        System.out.println(array1.get(0));
 
 
     }

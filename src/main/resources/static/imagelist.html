@@ -49,8 +49,8 @@
             <div class="container-fluid am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 首页 <small>Index</small></div>
-                        <p class="page-header-description">您可以看到您的主机的一些基本信息。</p>
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 镜像列表 <small>Image List</small></div>
+                        <p class="page-header-description">您可以看到您的每一台主机上的镜像列表。</p>
                     </div>
                     <div class="am-u-lg-3 tpl-index-settings-button">
                         <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
@@ -60,57 +60,6 @@
             </div>
 
             <div class="row-content am-cf">
-                <div class="row  am-cf">
-                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                        <div class="widget widget-primary am-cf">
-                            <div class="widget-statistic-body">
-                                Docker主机数量
-                            </div>
-                            <div class="widget-statistic-body">
-                                <div id="totalHost" class="widget-statistic-value">
-
-                                </div>
-                                <div class="widget-statistic-description">
-                                    您的主机总数
-                                </div>
-                                <span class="widget-statistic-icon am-icon-home"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                        <div class="widget widget-primary am-cf">
-                            <div class="widget-statistic-body">
-                                Docker健康主机数
-                            </div>
-                            <div class="widget-statistic-body">
-                                <div id="activeHost" class="widget-statistic-value">
-
-                                </div>
-                                <div class="widget-statistic-description">
-                                    接口请求成功主机总数
-                                </div>
-                                <span class="widget-statistic-icon am-icon-linux"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                        <div class="widget widget-purple am-cf">
-                            <div class="widget-statistic-header">
-                                Docker异常主机数
-                            </div>
-                            <div class="widget-statistic-body">
-                                <div  id="deadHost" class="widget-statistic-value">
-
-                                </div>
-                                <div class="widget-statistic-description">
-                                    接口请求失败主机数量
-                                </div>
-                                <span class="widget-statistic-icon am-icon-warning"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
 
                 <div class="row">
 
@@ -149,7 +98,6 @@
                 </div>
 
                 <div class="row ">
-
 
                     <div class="am-u-md-4 am-fl">
                         <section data-am-widget="accordion" class="am-accordion am-accordion-default" data-am-accordion='{ "multiple": true }'>
@@ -232,7 +180,7 @@
 
     <script>
         $('#public').load('public.html',function(responseTxt,statusTxt,xhr){
-            $('#index').attr("class","active");
+            $('#imagelist').attr("class","active");
         })
 
 
