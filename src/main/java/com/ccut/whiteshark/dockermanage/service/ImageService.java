@@ -2,9 +2,14 @@ package com.ccut.whiteshark.dockermanage.service;
 
 import com.ccut.whiteshark.dockermanage.api.ImageUtils;
 import com.ccut.whiteshark.dockermanage.entity.ImageEntity;
+import com.ccut.whiteshark.dockermanage.entity.UserHost;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author WhiteShark
@@ -13,18 +18,25 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ImageService {
-    public JSONArray getImageList(String ip, String port) {
+    private static final Logger logger = LoggerFactory.getLogger(ImageService.class);
+    public JSONArray getImageList(List<UserHost> list) {
+        logger.info("获取镜像信息");
         ImageUtils utils = new ImageUtils();
-        JSONArray array = new JSONArray(utils.getInamgeList(ip, port));
-        ImageEntity entity = new ImageEntity();
         JSONArray result = new JSONArray();
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject jsonObject = array.getJSONObject(i);
-            entity.setId(jsonObject.getString("Id"));
-            JSONArray array1 = jsonObject.getJSONArray("RepoTags");
-            entity.setRepoTags(array1.getString(0));
-            entity.setSize(jsonObject.getInt("Size")/1024);
-            result.put(entity);
+        for (int i = 0;i < list.size();i++){
+            UserHost userHost = list.get(i);
+            JSONArray array = new JSONArray(utils.getInamgeList(userHost.getHost(), userHost.getPort()));
+            JSONArray array1 = new JSONArray();
+            for (int j = 0;j < array.length();j++){
+                JSONObject jsonObject = array.getJSONObject(i);
+                ImageEntity entity = new ImageEntity();
+                entity.setId(jsonObject.getString("Id"));
+                entity.setSize(jsonObject.getInt("Size"));
+                entity.setVirtualSize(jsonObject.getInt("VirtualSize"));
+                entity.setRepoTags(jsonObject.getJSONArray("RepoTags").getString(0));
+                array1.put(entity);
+            }
+            result.put(array1);
         }
         return result;
     }

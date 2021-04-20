@@ -9,6 +9,7 @@ public class ImageEntity {
     private String id;
     private String repoTags;
     private Integer size;
+    private Integer virtualSize;
 
     public String getId() {
         return id;
@@ -34,10 +35,19 @@ public class ImageEntity {
         this.size = size;
     }
 
-    public ImageEntity(String id, String repoTags, Integer size) {
+    public Integer getVirtualSize() {
+        return virtualSize;
+    }
+
+    public void setVirtualSize(Integer virtualSize) {
+        this.virtualSize = virtualSize;
+    }
+
+    public ImageEntity(String id, String repoTags, Integer size, Integer virtualSize) {
         this.id = id;
         this.repoTags = repoTags;
         this.size = size;
+        this.virtualSize = virtualSize;
     }
 
     public ImageEntity() {
@@ -49,6 +59,7 @@ public class ImageEntity {
                 "id='" + id + '\'' +
                 ", repoTags='" + repoTags + '\'' +
                 ", size=" + size +
+                ", virtualSize=" + virtualSize +
                 '}';
     }
 }

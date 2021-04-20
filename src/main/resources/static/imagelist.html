@@ -50,7 +50,7 @@
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
                         <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 镜像列表 <small>Image List</small></div>
-                        <p class="page-header-description">您可以看到您的每一台主机上的镜像列表。</p>
+                        <p class="page-header-description">您可以看到您的每一台主机上的镜像。</p>
                     </div>
                     <div class="am-u-lg-3 tpl-index-settings-button">
                         <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
@@ -66,7 +66,7 @@
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">活跃主机列表</div>
+                                <div class="widget-title am-fl">镜像列表</div>
                                 <div class="widget-function am-fr">
                                     <a href="javascript:;" class="am-icon-cog"></a>
                                 </div>
@@ -76,14 +76,12 @@
                                 <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " >
                                     <thead>
                                     <tr>
-                                        <th>主机ID</th>
-                                        <th>版本</th>
+                                        <th>镜像ID</th>
+                                        <th>镜像名称</th>
+                                        <th>镜像大小</th>
+                                        <th>虚拟大小</th>
                                         <th>容器数量</th>
-                                        <th>操作系统</th>
-                                        <th>CPU架构</th>
-                                        <th>CPU</th>
-                                        <th>内存</th>
-                                        <th>系统时间</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody id="hostList">
@@ -193,15 +191,11 @@
                 //几个参数需要注意一下
                 type: "POST",//方法类型
                 dataType: "json",//预期服务器返回的数据类型
-                url: "/getIndexInfo" ,//url
+                url: "/image/getList" ,//url
                 async:true,
                 success: function (data) {
                     console.log(data);
-                    console.log(data.totalHost);
-                    $('#totalHost').append(data.totalHost);
-                    $('#activeHost').append(data.activeHost);
-                    $('#deadHost').append(data.deadHost);
-                    var list = data.hostList;
+                    var list = data;
                     console.log(list[0]);
                     $('#hostList').children().remove()
                     for (var i = 0;i < list.length;i++){
