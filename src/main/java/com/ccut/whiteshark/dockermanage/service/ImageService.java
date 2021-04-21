@@ -28,12 +28,13 @@ public class ImageService {
             JSONArray array = new JSONArray(utils.getInamgeList(userHost.getHost(), userHost.getPort()));
             JSONArray array1 = new JSONArray();
             for (int j = 0;j < array.length();j++){
-                JSONObject jsonObject = array.getJSONObject(i);
+                JSONObject jsonObject = array.getJSONObject(j);
                 ImageEntity entity = new ImageEntity();
                 entity.setId(jsonObject.getString("Id"));
                 entity.setSize(jsonObject.getInt("Size"));
                 entity.setVirtualSize(jsonObject.getInt("VirtualSize"));
                 entity.setRepoTags(jsonObject.getJSONArray("RepoTags").getString(0));
+                entity.setIp(userHost.getHost());
                 array1.put(entity);
             }
             result.put(array1);

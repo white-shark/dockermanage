@@ -1,11 +1,10 @@
 package com.ccut.whiteshark.dockermanage.controller;
 
 import com.ccut.whiteshark.dockermanage.entity.UserHost;
-import com.ccut.whiteshark.dockermanage.entity.UserInfo;
 import com.ccut.whiteshark.dockermanage.repository.UserHostRepository;
-import com.ccut.whiteshark.dockermanage.repository.UserInfoRepository;
 import com.ccut.whiteshark.dockermanage.service.ImageService;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,11 +26,16 @@ public class ImageController {
 
 
     @PostMapping(value = "/image/getList")
-    public JSONArray getImageList(HttpSession session){
+    public List<Object> getImageList(HttpSession session){
         List<UserHost> list = userHostRepository.findAllByUserName(String.valueOf(session.getAttribute("userName")));
         ImageService service = new ImageService();
-        JSONArray array = service.getImageList(list);
-        System.out.println(array);
-        return array;
+        return service.getImageList(list).toList();
+    }
+
+    @PostMapping(value = "/image/delete")
+    public String deleteImage(@RequestParam String id,@RequestParam String ip){
+        String ids = id.split(":")[1];
+        System.out.println(ids + ":" +ip);
+        return "success";
     }
 }

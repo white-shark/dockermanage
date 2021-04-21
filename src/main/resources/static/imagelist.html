@@ -60,39 +60,8 @@
             </div>
 
             <div class="row-content am-cf">
+                <div id="lists">
 
-                <div class="row">
-
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                        <div class="widget am-cf">
-                            <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">镜像列表</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
-                            </div>
-                            <div class="widget-body  widget-body-lg am-fr">
-
-                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " >
-                                    <thead>
-                                    <tr>
-                                        <th>镜像ID</th>
-                                        <th>镜像名称</th>
-                                        <th>镜像大小</th>
-                                        <th>虚拟大小</th>
-                                        <th>容器数量</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="hostList">
-
-                                    <!-- more data -->
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="row ">
@@ -191,30 +160,88 @@
                 //几个参数需要注意一下
                 type: "POST",//方法类型
                 dataType: "json",//预期服务器返回的数据类型
-                url: "/image/getList" ,//url
+                url: "/image/getList",//url
                 async:true,
                 success: function (data) {
-                    console.log(data);
+                    var lists = $('#lists')
                     var list = data;
-                    console.log(list[0]);
-                    $('#hostList').children().remove()
-                    for (var i = 0;i < list.length;i++){
-                        $('#hostList').append('<tr class="gradeX" role="row">\n' +
-                            '<td>'+ list[i].id +'</td>\n' +
-                            '<td>'+ list[i].serverVersion +'</td>\n' +
-                            '<td>'+ list[i].containersRunning +'</td>\n' +
-                            '<td>'+ list[i].operatingSystem +'</td>\n' +
-                            '<td>'+ list[i].architecture +'</td>\n' +
-                            '<td>'+ list[i].cpu +'</td>\n' +
-                            '<td>'+ list[i].memTotal +'</td>\n' +
-                            '<td>'+ list[i].systemTime +'</td>\n' +
-                            '</tr>')
+                    for (var i = 0; i < list.length;i++){
+                        var ips = list[i];
+                        var ip = ips[0].ip;
+                        var info = list[i];
+                        lists.append(
+                            '                <div class="row">\n' +
+                            '                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">\n' +
+                            '                        <div class="widget am-cf">\n' +
+                            '                            <div class="widget-head am-cf">\n' +
+                            '                                <div class="widget-title am-fl">'+ ip +'</div>\n' +
+                            '                                <div class="widget-function am-fr">\n' +
+                            '                                    <a href="javascript:;" class="am-icon-cog"></a>\n' +
+                            '                                </div>\n' +
+                            '                            </div>\n' +
+                            '                            <div class="widget-body  widget-body-lg am-fr">\n' +
+                            '                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " >\n' +
+                            '                                    <thead>\n' +
+                            '                                    <tr>\n' +
+                            '                                        <th>镜像ID</th>\n' +
+                            '                                        <th>镜像名称</th>\n' +
+                            '                                        <th>镜像大小</th>\n' +
+                            '                                        <th>虚拟大小</th>\n' +
+                            '                                        <th>操作</th>\n' +
+                            '                                    </tr>\n' +
+                            '                                    </thead>\n' +
+                            '                                    <tbody id="hostList'+ i +'\">\n'
+                        );
+                        for (var j = 0; j < info.length;j++){
+                            var hostlist = $('#hostList'+i);
+                            hostlist.append(
+                                '<tr>' +
+                                '<td>'+ info[j].id +'</td>\n' +
+                                '<td>'+ info[j].repoTags +'</td>\n' +
+                                '<td>'+ info[j].size +'</td>\n' +
+                                '<td>'+ info[j].virtualSize +'</td>\n' +
+                                '<td>' +
+                                '    <div class="tpl-table-black-operation">\n' +
+                                '        <a onclick="deleteImg(&quot;'+ info[i].id + '&quot;\,&quot;' + ip +'&quot;)" class="tpl-table-black-operation-del">\n' +
+                                '            <i class="am-icon-trash"></i> 删除\n' +
+                                '        </a>\n' +
+                                '    </div>\n' +
+                                '</td>' +
+                                '</tr>'
+                            );
+                        }
+                        lists.append(
+                            '                                    </tbody>\n' +
+                            '                                </table>\n' +
+                            '\n' +
+                            '                            </div>\n' +
+                            '                        </div>\n' +
+                            '                    </div>\n' +
+                            '                </div>'
+                        )
                     }
                     progress.done();
                 },
             });
         }
 
+    </script>
+
+    <script>
+        function deleteImg(id,ip){
+            console.log(id);
+            console.log(ip);
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/image/delete",//url
+                data:{"id":id,"ip":ip},
+                async: true,
+                success: function (data) {
+                }
+            });
+        }
     </script>
 
     <script>

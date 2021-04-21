@@ -1,6 +1,7 @@
 package com.ccut.whiteshark.dockermanage.api;
 
 import com.ccut.whiteshark.dockermanage.api.http.Get;
+import org.json.JSONArray;
 
 /**
  * @author WhiteShark
@@ -12,6 +13,10 @@ public class ImageUtils {
     public String getInamgeList(String ip,String port){
         String url = "http://" + ip + ":" + port + "/images/json";
         return Get.getInfo(url);
+    }
+    public JSONArray getJson(String ip,String port){
+        JSONArray array = new JSONArray(getInamgeList(ip,port));
+        return array;
     }
 
 }

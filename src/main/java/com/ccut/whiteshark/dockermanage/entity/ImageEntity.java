@@ -10,6 +10,7 @@ public class ImageEntity {
     private String repoTags;
     private Integer size;
     private Integer virtualSize;
+    private String ip;
 
     public String getId() {
         return id;
@@ -43,11 +44,20 @@ public class ImageEntity {
         this.virtualSize = virtualSize;
     }
 
-    public ImageEntity(String id, String repoTags, Integer size, Integer virtualSize) {
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public ImageEntity(String id, String repoTags, Integer size, Integer virtualSize, String ip) {
         this.id = id;
         this.repoTags = repoTags;
         this.size = size;
         this.virtualSize = virtualSize;
+        this.ip = ip;
     }
 
     public ImageEntity() {
@@ -60,6 +70,7 @@ public class ImageEntity {
                 ", repoTags='" + repoTags + '\'' +
                 ", size=" + size +
                 ", virtualSize=" + virtualSize +
+                ", ip='" + ip + '\'' +
                 '}';
     }
 }
