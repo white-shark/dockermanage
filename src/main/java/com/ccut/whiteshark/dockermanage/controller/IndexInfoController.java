@@ -27,7 +27,6 @@ public class IndexInfoController {
         List<UserHost> list = userHostRepository.findAllByUserName((String) session.getAttribute("userName"));
         IndexInfoService service = new IndexInfoService();
         JSONObject jsonObject = service.getInfo(list);
-        System.out.println(jsonObject.toString());
         return jsonObject.toString();
     }
 }

@@ -2,6 +2,8 @@ package com.ccut.whiteshark.dockermanage.controller;
 
 import com.ccut.whiteshark.dockermanage.entity.UserLogin;
 import com.ccut.whiteshark.dockermanage.repository.UserLoginRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpSession;
 @RestController
 public class SignInController {
 
+    private static final Logger logger = LoggerFactory.getLogger(SignInController.class);
+
     @Autowired
     UserLoginRepository userLoginRepository;
 
@@ -26,6 +30,7 @@ public class SignInController {
         if (login.getPassword().equals(password)){
             session.setAttribute("userName",login.getUserName());
             session.setAttribute("authority",login.getAuthority());
+            logger.info("用户" + login.getUserName() + "登陆");
             return "index";
         }
         else {

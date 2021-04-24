@@ -77,7 +77,6 @@ public class UserInfoController {
 
     @PostMapping(value = "/user/delete/host")
     public String delHost(@RequestParam Integer id){
-        System.out.println("id:"+ id);
         try {
             userHostRepository.deleteById(id);
             return "success";

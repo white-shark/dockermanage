@@ -51,8 +51,8 @@ public class ImageService {
         logger.info("删除镜像");
         try{
             JSONObject jsonObject = ImageUtils.deleteImage(ip, port, id);
-            System.out.println(jsonObject.toString());
             if (jsonObject.getInt("code") == 200){
+                logger.info("删除镜像{"+id+"}成功！");
                 return "删除成功";
             }
             else {
@@ -67,6 +67,7 @@ public class ImageService {
     }
 
     public JSONArray searchImage(String ip, String port, UserInfo userInfo, String imageName){
+        logger.info("搜索镜像");
         DockerConfig config = new DockerConfig();
         config.setRegistryUser(userInfo.getRegistryUser());
         config.setRegistryPass(userInfo.getRegistryPass());
@@ -77,7 +78,6 @@ public class ImageService {
         DockerClient dockerClient = httpClient.client(config);
         List<SearchItem> list = dockerClient.searchImagesCmd(imageName).exec();
         JSONArray array = new JSONArray(list);
-        System.out.println(array.toString());
         return array;
     }
 

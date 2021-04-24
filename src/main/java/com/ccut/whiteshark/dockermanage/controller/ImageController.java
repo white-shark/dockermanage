@@ -45,7 +45,6 @@ public class ImageController {
     public String deleteImage(@RequestParam String id,@RequestParam String ip,HttpSession session){
         UserHost userHost = userHostRepository.findByUserNameAndHost(String.valueOf(session.getAttribute("userName")),ip);
         String ids = id.split(":")[1];
-        System.out.println(ids + ":" +ip);
         return service.deleteImage(ip,userHost.getPort(),ids);
     }
 
