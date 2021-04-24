@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="assets/css/app.css">
+    <script src="assets/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/layui/css/layui.css">
+    <script src="/assets/layui/layui.js"></script>
+
+</head>
+
+<body data-type="index">
+    <script src="assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+        <!-- 风格切换 -->
+        <div class="tpl-skiner">
+            <div class="tpl-skiner-toggle am-icon-cog">
+            </div>
+            <div class="tpl-skiner-content">
+                <div class="tpl-skiner-content-title">
+                    选择主题
+                </div>
+                <div class="tpl-skiner-content-bar">
+                    <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                    <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                </div>
+            </div>
+        </div>
+        <!--公共部分引入-->
+        <div id="public">
+        </div>
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+
+            <div class="container-fluid am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 镜像列表 <small>Image List</small></div>
+                        <p class="page-header-description">您可以看到您的每一台主机上的镜像。</p>
+                    </div>
+                    <div class="am-u-lg-3 tpl-index-settings-button">
+                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 拉取镜像</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row-content am-cf">
+
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">搜索镜像</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
+                            </div>
+                            <div class="widget-body am-fr">
+                                <form id="dockerHubInfo" class="am-form tpl-form-line-form">
+                                    <div class="am-form-group">
+                                        <label for="search" class="am-u-sm-3 am-form-label">搜索镜像 <span class="tpl-form-line-small-title">ç</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" id="search" name="search" placeholder="搜索">
+                                            <small>请输入搜索内容</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <button type="button" onclick="searchImage()" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">搜索结果</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
+                            </div>
+                            <div class="widget-body  widget-body-lg am-fr">
+
+                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>使用量</th>
+                                        <th>名称</th>
+                                        <th>官方的</th>
+                                        <th>描述</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="searchResult">
+                                    <!-- more data -->
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="lists">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/amazeui.datatables.min.js"></script>
+    <script src="assets/js/dataTables.responsive.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <!--公共部分引入-->
+
+
+    <script>
+        $('#public').load('public.html',function(responseTxt,statusTxt,xhr){
+            $('#imagelist').attr("class","active");
+        })
+
+        const layer = layui.layer, form = layui.form;
+
+    </script>
+    <script>
+        function searchImage(){
+            var progress = $.AMUI.progress;
+            progress.start();
+            var search = document.getElementById('search').value;
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/image/search",//url
+                data:{"search":search},
+                success: function (data) {
+                    console.log(data);
+                    for (var j = 0; j < data.length;j++){
+                        var searchResult = $('#searchResult');
+                        searchResult.append(
+                            '<tr>' +
+                            '<td>'+ j +'</td>' +
+                            '<td>'+ data[j].starCount +'</td>\n' +
+                            '<td>'+ data[j].name +'</td>\n' +
+                            '<td>'+ data[j].official +'</td>\n' +
+                            '<td>'+ data[j].description +'</td>\n' +
+                            '</tr>'
+                        );
+                    }
+                    progress.done();
+                }
+            });
+        }
+
+    </script>
+
+    <script>
+        function deleteImg(id,ip){
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "text",//预期服务器返回的数据类型
+                url: "/image/delete",//url
+                data:{"id":id,"ip":ip},
+                async: true,
+                success: function (data) {
+                    layer.msg(data);
+                }
+            });
+        }
+    </script>
+
+    <script>
+
+    </script>
+
+
+</body>
+
+</html>

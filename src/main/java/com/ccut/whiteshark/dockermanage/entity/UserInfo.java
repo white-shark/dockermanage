@@ -21,6 +21,14 @@ public class UserInfo {
     private String dockerHub;
     @Column
     private String authority;
+    @Column
+    private String registryUser;
+    @Column
+    private String registryPass;
+    @Column
+    private String registryMail;
+    @Column
+    private String privateRegistry;
 
     public String getUserName() {
         return userName;
@@ -55,11 +63,47 @@ public class UserInfo {
         this.authority = authority;
     }
 
-    public UserInfo(String userName, String email, String dockerHub, String authority) {
+    public String getRegistryUser() {
+        return registryUser;
+    }
+
+    public void setRegistryUser(String registryUser) {
+        this.registryUser = registryUser;
+    }
+
+    public String getRegistryPass() {
+        return registryPass;
+    }
+
+    public void setRegistryPass(String registryPass) {
+        this.registryPass = registryPass;
+    }
+
+    public String getRegistryMail() {
+        return registryMail;
+    }
+
+    public void setRegistryMail(String registryMail) {
+        this.registryMail = registryMail;
+    }
+
+    public String getPrivateRegistry() {
+        return privateRegistry;
+    }
+
+    public void setPrivateRegistry(String privateRegistry) {
+        this.privateRegistry = privateRegistry;
+    }
+
+    public UserInfo(String userName, String email, String dockerHub, String authority, String registryUser, String registryPass, String registryMail, String privateRegistry) {
         this.userName = userName;
         this.email = email;
         this.dockerHub = dockerHub;
         this.authority = authority;
+        this.registryUser = registryUser;
+        this.registryPass = registryPass;
+        this.registryMail = registryMail;
+        this.privateRegistry = privateRegistry;
     }
 
     public UserInfo() {
@@ -72,6 +116,10 @@ public class UserInfo {
                 ", email='" + email + '\'' +
                 ", dockerHub='" + dockerHub + '\'' +
                 ", authority='" + authority + '\'' +
+                ", registryUser='" + registryUser + '\'' +
+                ", registryPass='" + registryPass + '\'' +
+                ", registryMail='" + registryMail + '\'' +
+                ", privateRegistry='" + privateRegistry + '\'' +
                 '}';
     }
 }

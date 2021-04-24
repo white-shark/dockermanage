@@ -12,6 +12,13 @@ public class DockerConfig {
     private String registryMail = "727789136@qq.com";
     private String registryUrl = "https://hub.docker.com/";
     private String host = "tcp://192.168.124.16:2375";
+//    private String registryUser;
+//    private String registryPass;
+//    private String registryMail;
+//    private String registryUrl;
+//    private String host;
+
+
     public DockerClientConfig config(){
         DockerClientConfig custom = DefaultDockerClientConfig.createDefaultConfigBuilder()
                 .withDockerHost(host)

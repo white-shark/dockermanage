@@ -30,19 +30,20 @@ import java.util.List;
  */
 public class Test {
     private static final Logger logger = null;
+
     public static void main(String[] args) throws ParseException, IOException {
-//        DockerConfig config = new DockerConfig();
-//        HttpClient httpClient = new HttpClient();
-//        DockerClient dockerClient = httpClient.client(config);
+        DockerConfig config = new DockerConfig();
+        HttpClient httpClient = new HttpClient();
+        DockerClient dockerClient = httpClient.client(config);
 //        Info info = dockerClient.infoCmd().exec();
 
 //        ListImagesCmd client;
 //        client = dockerClient.listImagesCmd();
 //        System.out.println(client.toString());
-//        List<SearchItem> list = dockerClient.searchImagesCmd("tomcat").exec();
-//        System.out.println(list.toString());
-//        JSONArray array = new JSONArray(list);
-//        System.out.println(array.toString());
+        List<SearchItem> list = dockerClient.searchImagesCmd("tomcata").exec();
+        System.out.println(list.toString());
+        JSONArray array = new JSONArray(list);
+        System.out.println(array.toString());
 
 //        System.out.println(dockerClient.listImagesCmd().withShowAll(true).exec());
 //        dockerClient.authCmd().exec();
@@ -97,15 +98,6 @@ public class Test {
 //        dockerClient.pullImageCmd("busybox:latest").exec(new PullImageResultCallback()).awaitSuccess();
 //        System.out.println("下载完毕!");
 //
-
-
-        ImageUtils utils = new ImageUtils();
-        JSONArray array = new JSONArray(utils.getInamgeList("192.168.124.16","2375"));
-        System.out.println(array.toString());
-        JSONObject jsonObject = array.getJSONObject(0);
-        JSONArray array1 = jsonObject.getJSONArray("RepoTags");
-        System.out.println(array1.toString());
-        System.out.println(array1.get(0));
 
 
     }

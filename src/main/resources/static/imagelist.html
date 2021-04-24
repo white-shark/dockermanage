@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="/assets/layui/css/layui.css">
+    <script src="/assets/layui/layui.js"></script>
+
 </head>
 
 <body data-type="index">
@@ -53,7 +56,7 @@
                         <p class="page-header-description">您可以看到您的每一台主机上的镜像。</p>
                     </div>
                     <div class="am-u-lg-3 tpl-index-settings-button">
-                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+                        <button type="button" onclick="pullImage()" class="page-header-button"><span class="am-icon-paint-brush"></span> 拉取镜像</button>
                     </div>
                 </div>
 
@@ -61,72 +64,6 @@
 
             <div class="row-content am-cf">
                 <div id="lists">
-
-                </div>
-
-                <div class="row ">
-
-                    <div class="am-u-md-4 am-fl">
-                        <section data-am-widget="accordion" class="am-accordion am-accordion-default" data-am-accordion='{ "multiple": true }'>
-
-                            <dl class="am-accordion-item am-active">
-                                <dt class="am-accordion-title">
-                                    我就这样告别山下的家
-                                </dt>
-                                <dd class="am-accordion-bd am-collapse am-in">
-                                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
-                                    <div class="am-accordion-content">
-                                        <div class="">
-                                            <div class="tpl-user-card am-text-center widget-body-lg">
-                                                <div class="tpl-user-card-title">
-                                                    192.168.124.16
-                                                </div>
-                                                <div class="achievement-description">
-                                                    <strong>x86_64</strong>
-                                                </div>
-                                                <img class="achievement-image" src="assets/img/user07.png" alt="">
-                                                <div class="achievement-description">
-                                                    <strong>CentOS Linux 7 (Core)</strong>
-                                                </div>
-                                                <button type="button"  class="am-btn am-btn-default am-round"><span class="am-icon-paint-brush"></span> 设置</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </dd>
-                            </dl>
-                        </section>
-                    </div>
-
-                    <div class="am-u-md-4 am-u-end">
-                        <section data-am-widget="accordion" class="am-accordion am-accordion-default" data-am-accordion='{ "multiple": true }'>
-
-                            <dl class="am-accordion-item am-active">
-                                <dt class="am-accordion-title">
-                                    我就这样告别山下的家
-                                </dt>
-                                <dd class="am-accordion-bd am-collapse am-in">
-                                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
-                                    <div class="am-accordion-content">
-                                        <div class="">
-                                            <div class="tpl-user-card am-text-center widget-body-lg">
-                                                <div class="tpl-user-card-title">
-                                                    192.168.124.16
-                                                </div>
-                                                <div class="achievement-description">
-                                                    <strong>x86_64</strong>
-                                                </div>
-                                                <img class="achievement-image" src="assets/img/user07.png" alt="">
-                                                <div class="achievement-description">
-                                                    <strong>CentOS Linux 7 (Core)</strong>
-                                                </div>
-                                                <button type="button"  class="am-btn am-btn-default am-round"><span class="am-icon-paint-brush"></span> 设置</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </dd>
-                            </dl>
-                        </section>
-                    </div>
 
                 </div>
 
@@ -150,6 +87,7 @@
             $('#imagelist').attr("class","active");
         })
 
+        const layer = layui.layer, form = layui.form;
 
     </script>
     <script>
@@ -202,7 +140,7 @@
                                 '<td>'+ info[j].virtualSize +'</td>\n' +
                                 '<td>' +
                                 '    <div class="tpl-table-black-operation">\n' +
-                                '        <a onclick="deleteImg(&quot;'+ info[i].id + '&quot;\,&quot;' + ip +'&quot;)" class="tpl-table-black-operation-del">\n' +
+                                '        <a onclick="deleteImg(&quot;'+ info[j].id + '&quot;\,&quot;' + ip +'&quot;)" class="tpl-table-black-operation-del">\n' +
                                 '            <i class="am-icon-trash"></i> 删除\n' +
                                 '        </a>\n' +
                                 '    </div>\n' +
@@ -229,25 +167,23 @@
 
     <script>
         function deleteImg(id,ip){
-            console.log(id);
-            console.log(ip);
             $.ajax({
                 //几个参数需要注意一下
                 type: "POST",//方法类型
-                dataType: "json",//预期服务器返回的数据类型
+                dataType: "text",//预期服务器返回的数据类型
                 url: "/image/delete",//url
                 data:{"id":id,"ip":ip},
                 async: true,
                 success: function (data) {
+                    layer.msg(data);
                 }
             });
         }
     </script>
 
     <script>
-
-        function act(){
-            document.getElementById('index').className = 'active';
+        function pullImage(){
+            window.location.href = 'pullimage.html';
         }
     </script>
 

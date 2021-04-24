@@ -13,5 +13,18 @@ import java.util.List;
  */
 @Repository
 public interface UserHostRepository extends JpaRepository<UserHost,Integer> {
+    /**
+     * 通过用户名查询所有逐句
+     * @param name 用户名
+     * @return List
+     */
     public List<UserHost> findAllByUserName(String name);
+
+    /**
+     * 通过用户名和ip查询主机信息
+     * @param name 用户名
+     * @param host IP
+     * @return Userhost
+     */
+    public UserHost findByUserNameAndHost(String name,String host);
 }

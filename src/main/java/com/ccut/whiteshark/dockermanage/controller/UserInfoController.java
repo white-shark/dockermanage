@@ -32,15 +32,20 @@ public class UserInfoController {
     private final static Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 
     @PostMapping(value = "/user/getDockerHub")
-    public String getDockerHub(HttpSession session){
-        UserInfo userInfo = userInfoRepository.findByUserName((String) session.getAttribute("userName"));
-        return userInfo.getDockerHub();
+    public UserInfo getDockerHub(HttpSession session){
+        return userInfoRepository.findByUserName((String) session.getAttribute("userName"));
     }
     @PostMapping(value = "/user/setDockerHub")
-    public String setDockerHub(HttpSession session, @RequestParam String dockerHub){
+    public String setDockerHub(@RequestParam String dockerHub,@RequestParam String privateRegistry,
+                               @RequestParam String registryUser,@RequestParam String registryPass,
+                               @RequestParam String registryMail,HttpSession session){
         try {
             UserInfo userInfo = userInfoRepository.findByUserName((String) session.getAttribute("userName"));
             userInfo.setDockerHub(dockerHub);
+            userInfo.setPrivateRegistry(privateRegistry);
+            userInfo.setRegistryUser(registryUser);
+            userInfo.setRegistryPass(registryPass);
+            userInfo.setRegistryMail(registryMail);
             userInfoRepository.save(userInfo);
             return "success";
         }catch (Exception e){

@@ -74,12 +74,40 @@
                             </div>
                             <div class="widget-body am-fr">
 
-                                <form class="am-form tpl-form-line-form">
+                                <form id="dockerHubInfo" class="am-form tpl-form-line-form">
                                     <div class="am-form-group">
-                                        <label for="dockerhub" class="am-u-sm-3 am-form-label">DockerHub <span class="tpl-form-line-small-title">DockerHub</span></label>
+                                        <label for="dockerHub" class="am-u-sm-3 am-form-label">DockerHub <span class="tpl-form-line-small-title">DockerHub</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="dockerhub" name="dockerHub" placeholder="dockerhub地址">
-                                            <small>请填写您的DOckerHub地址。</small>
+                                            <input type="text" class="tpl-form-input" id="dockerHub" name="dockerHub" placeholder="dockerhub地址">
+                                            <small>请填写您的DockerHub地址。</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="privateRegistry" class="am-u-sm-3 am-form-label">PrivateRegistry <span class="tpl-form-line-small-title">私有docker仓库地址</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" id="privateRegistry" name="privateRegistry" placeholder="私有docker仓库地址">
+                                            <small>私有Docker仓库地址。{192.168.124.17:5000}</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="registryUser" class="am-u-sm-3 am-form-label">DockerHub用户名 <span class="tpl-form-line-small-title">DockerHubUser</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" id="registryUser" name="registryUser" placeholder="DockerHub用户名">
+                                            <small>请请填写您的DockerHub用户名。</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="registryPass" class="am-u-sm-3 am-form-label">DockerHub <span class="tpl-form-line-small-title">DockerHub用户密码</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="password" class="tpl-form-input" id="registryPass" name="registryPass" placeholder="dockerhub用户密码">
+                                            <small>请填写您的DockerHub用户密码。</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="registryMail" class="am-u-sm-3 am-form-label">DockerHub邮箱 <span class="tpl-form-line-small-title">DockerHubEmail</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="email" class="tpl-form-input" id="registryMail" name="registryMail" placeholder="dockerhub邮箱">
+                                            <small>请填写您的DockerHub邮箱。</small>
                                         </div>
                                     </div>
 
@@ -191,10 +219,15 @@
             $.ajax({
                 //几个参数需要注意一下
                 type: "POST",//方法类型
-                dataType: "text",//预期服务器返回的数据类型
+                dataType: "json",//预期服务器返回的数据类型
                 url: "/user/getDockerHub" ,//url
                 success: function (data) {
-                    document.getElementById('dockerhub').value = data;
+                    document.getElementById('dockerHub').value = data.dockerHub;
+                    document.getElementById('privateRegistry').value = data.privateRegistry;
+                    document.getElementById('registryUser').value = data.registryUser;
+                    document.getElementById('registryPass').value = data.registryPass;
+                    document.getElementById('registryMail').value = data.registryMail;
+
                 },
             });
         }
@@ -206,7 +239,7 @@
                 type: "POST",//方法类型
                 dataType: "text",//预期服务器返回的数据类型
                 url: "/user/setDockerHub" ,//url
-                data: $('#dockerhub').serialize(),
+                data: $('#dockerHubInfo').serialize(),
                 success: function (data) {
                     if (data === "success"){
                         layer.msg('保存成功');

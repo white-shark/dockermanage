@@ -1,8 +1,13 @@
 package com.ccut.whiteshark.dockermanage.service;
 
 import com.ccut.whiteshark.dockermanage.api.ImageUtils;
+import com.ccut.whiteshark.dockermanage.client.docker.DockerConfig;
+import com.ccut.whiteshark.dockermanage.client.docker.HttpClient;
 import com.ccut.whiteshark.dockermanage.entity.ImageEntity;
 import com.ccut.whiteshark.dockermanage.entity.UserHost;
+import com.ccut.whiteshark.dockermanage.entity.UserInfo;
+import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.model.SearchItem;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -41,4 +46,39 @@ public class ImageService {
         }
         return result;
     }
+
+    public String deleteImage(String ip,String port,String id){
+        logger.info("删除镜像");
+        try{
+            JSONObject jsonObject = ImageUtils.deleteImage(ip, port, id);
+            System.out.println(jsonObject.toString());
+            if (jsonObject.getInt("code") == 200){
+                return "删除成功";
+            }
+            else {
+                JSONObject jsonObject1 = new JSONObject(jsonObject.getString("data"));
+                return jsonObject1.getString("message");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("删除镜像失败！");
+            return "error";
+        }
+    }
+
+    public JSONArray searchImage(String ip, String port, UserInfo userInfo, String imageName){
+        DockerConfig config = new DockerConfig();
+        config.setRegistryUser(userInfo.getRegistryUser());
+        config.setRegistryPass(userInfo.getRegistryPass());
+        config.setRegistryMail(userInfo.getRegistryMail());
+        config.setRegistryUrl(userInfo.getDockerHub());
+        config.setHost("tcp://"+ ip + ":" + port);
+        HttpClient httpClient = new HttpClient();
+        DockerClient dockerClient = httpClient.client(config);
+        List<SearchItem> list = dockerClient.searchImagesCmd(imageName).exec();
+        JSONArray array = new JSONArray(list);
+        System.out.println(array.toString());
+        return array;
+    }
+
 }
