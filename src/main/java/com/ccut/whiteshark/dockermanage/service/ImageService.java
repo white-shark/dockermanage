@@ -7,6 +7,8 @@ import com.ccut.whiteshark.dockermanage.entity.ImageEntity;
 import com.ccut.whiteshark.dockermanage.entity.UserHost;
 import com.ccut.whiteshark.dockermanage.entity.UserInfo;
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.async.ResultCallback;
+import com.github.dockerjava.api.model.PullResponseItem;
 import com.github.dockerjava.api.model.SearchItem;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,6 +27,7 @@ import java.util.List;
  */
 @Service
 public class ImageService {
+
     private static final Logger logger = LoggerFactory.getLogger(ImageService.class);
     public JSONArray getImageList(List<UserHost> list) {
         logger.info("获取镜像信息");
@@ -80,5 +85,48 @@ public class ImageService {
         JSONArray array = new JSONArray(list);
         return array;
     }
+
+    public JSONArray pullImage(String ip, String port, UserInfo userInfo, String imageName){
+        DockerConfig config = new DockerConfig();
+        config.setRegistryUser(userInfo.getRegistryUser());
+        config.setRegistryPass(userInfo.getRegistryPass());
+        config.setRegistryMail(userInfo.getRegistryMail());
+        config.setRegistryUrl(userInfo.getDockerHub());
+        config.setHost("tcp://"+ ip + ":" + port);
+        HttpClient httpClient = new HttpClient();
+        DockerClient dockerClient = httpClient.client(config);
+        JSONArray jsonArray = new JSONArray();
+        dockerClient.pullImageCmd(imageName).exec(new ResultCallback<PullResponseItem>() {
+            @Override
+            public void onStart(Closeable closeable) {
+                jsonArray.put("开始下载!");
+                System.out.println("开始下载!");
+            }
+
+            @Override
+            public void onNext(PullResponseItem pullResponseItem) {
+                jsonArray.put(pullResponseItem.getStatus());
+                System.out.println(pullResponseItem.getStatus());
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+
+            @Override
+            public void onComplete() {
+                jsonArray.put("下载完毕!");
+                System.out.println("下载完毕!");
+            }
+
+            @Override
+            public void close() throws IOException {
+                jsonArray.put("完毕");
+            }
+        });
+        return jsonArray;
+    }
+
 
 }
