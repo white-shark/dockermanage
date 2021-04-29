@@ -72,6 +72,10 @@ public class ImageService {
     }
 
     public JSONArray searchImage(String ip, String port, UserInfo userInfo, String imageName){
+//        String[] imn = imageName.split(":");
+//        if (imn.length < 2){
+//            imageName = imageName + ":latest";
+//        }
         logger.info("搜索镜像");
         DockerConfig config = new DockerConfig();
         config.setRegistryUser(userInfo.getRegistryUser());
@@ -106,6 +110,7 @@ public class ImageService {
             @Override
             public void onNext(PullResponseItem pullResponseItem) {
                 jsonArray.put(pullResponseItem.getStatus());
+
                 System.out.println(pullResponseItem.getStatus());
             }
 

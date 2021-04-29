@@ -49,10 +49,10 @@ public class ImageController {
     }
 
     @PostMapping(value = "/search")
-    public String searchImage(String search,HttpSession session){
+    public String searchImage(String search,String ip,HttpSession session){
         UserInfo userInfo = userInfoRepository.findByUserName(String.valueOf(session.getAttribute("userName")));
-        List<UserHost> list = userHostRepository.findAllByUserName(userInfo.getUserName());
-        JSONArray array =  service.searchImage(list.get(0).getHost(),list.get(0).getPort(),userInfo,search);
+        UserHost userHost = userHostRepository.findByUserNameAndHost(userInfo.getUserName(),ip);
+        JSONArray array =  service.searchImage(ip,userHost.getPort(),userInfo,search);
         return array.toString();
     }
 
@@ -60,7 +60,7 @@ public class ImageController {
     public String pullImage(String imageName,String ip,HttpSession session){
         UserInfo userInfo = userInfoRepository.findByUserName(String.valueOf(session.getAttribute("userName")));
         UserHost userHost = userHostRepository.findByUserNameAndHost(userInfo.getUserName(),ip);
-        JSONArray array =  service.searchImage(userHost.getHost(),userHost.getPort(),userInfo,imageName);
+        JSONArray array =  service.pullImage(userHost.getHost(),userHost.getPort(),userInfo,imageName);
         return array.toString();
     }
 
