@@ -182,7 +182,7 @@
                                     <div class="am-form-group">
                                         <label for="port" class="am-u-sm-3 am-form-label">端口 <span class="tpl-form-line-small-title">Port</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="port" name="port" placeholder="端口" data-am-datepicker="">
+                                            <input type="text" class="tpl-form-input" id="port" name="port" placeholder="端口" >
                                             <small>DockerApi端口</small>
                                         </div>
                                     </div>
@@ -314,7 +314,7 @@
             layer.msg('确定删除？', {
                 icon: 2,
                 time: 20000, //20s后自动关闭
-                btn: ['确定'],
+                btn: ['确定','取消'],
                 yes: function () {
                     $.ajax({
                         //几个参数需要注意一下
@@ -334,7 +334,10 @@
 
                     });
 
-                }
+                },
+                btn2:function () {
+                    layer.close();
+                },
             });
 
         }

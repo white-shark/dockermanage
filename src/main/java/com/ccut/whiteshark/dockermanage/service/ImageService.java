@@ -8,6 +8,10 @@ import com.ccut.whiteshark.dockermanage.entity.UserHost;
 import com.ccut.whiteshark.dockermanage.entity.UserInfo;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallback;
+import com.github.dockerjava.api.command.DockerCmdExecFactory;
+import com.github.dockerjava.api.command.PullImageCmd;
+import com.github.dockerjava.api.command.PullImageResultCallback;
+import com.github.dockerjava.api.model.AuthConfig;
 import com.github.dockerjava.api.model.PullResponseItem;
 import com.github.dockerjava.api.model.SearchItem;
 import org.json.JSONArray;
@@ -90,7 +94,7 @@ public class ImageService {
         return array;
     }
 
-    public JSONArray pullImage(String ip, String port, UserInfo userInfo, String imageName){
+    public JSONArray pullImage(String ip, String port, UserInfo userInfo, String imageName) throws InterruptedException {
         DockerConfig config = new DockerConfig();
         config.setRegistryUser(userInfo.getRegistryUser());
         config.setRegistryPass(userInfo.getRegistryPass());
@@ -100,37 +104,8 @@ public class ImageService {
         HttpClient httpClient = new HttpClient();
         DockerClient dockerClient = httpClient.client(config);
         JSONArray jsonArray = new JSONArray();
-        dockerClient.pullImageCmd(imageName).exec(new ResultCallback<PullResponseItem>() {
-            @Override
-            public void onStart(Closeable closeable) {
-                jsonArray.put("开始下载!");
-                System.out.println("开始下载!");
-            }
-
-            @Override
-            public void onNext(PullResponseItem pullResponseItem) {
-                jsonArray.put(pullResponseItem.getStatus());
-
-                System.out.println(pullResponseItem.getStatus());
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                throwable.printStackTrace();
-            }
-
-            @Override
-            public void onComplete() {
-                jsonArray.put("下载完毕!");
-                System.out.println("下载完毕!");
-            }
-
-            @Override
-            public void close() throws IOException {
-                jsonArray.put("完毕");
-            }
-        });
-        return jsonArray;
+        dockerClient.pullImageCmd(imageName).exec(new PullImageResultCallback()).awaitCompletion();
+        return jsonArray.put("success");
     }
 
 
