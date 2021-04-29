@@ -6,12 +6,12 @@ import com.ccut.whiteshark.dockermanage.api.http.Get;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallback;
 import com.github.dockerjava.api.command.ListImagesCmd;
+import com.github.dockerjava.api.command.PullImageResultCallback;
 import com.github.dockerjava.api.model.AuthConfig;
 import com.github.dockerjava.api.model.Info;
 import com.github.dockerjava.api.model.PullResponseItem;
 import com.github.dockerjava.api.model.SearchItem;
 import com.github.dockerjava.core.DockerClientBuilder;
-import com.github.dockerjava.core.command.PullImageResultCallback;
 import com.github.dockerjava.transport.DockerHttpClient;
 import okhttp3.*;
 import org.json.JSONArray;
@@ -64,8 +64,8 @@ public class Test {
 //        System.out.println("删除完毕");
 //
 //        DockerClient dockerClient1 = DockerClientBuilder.getInstance("tcp://192.168.124.16:2375").build();
-//        AuthConfig authConfig = new AuthConfig();
-//        authConfig.withUsername("whiteshark520").withPassword("zx12as45q.").withEmail("727789136@qq.com");
+        AuthConfig authConfig = new AuthConfig();
+        authConfig.withUsername("whiteshark520").withPassword("zx12as45q.").withEmail("727789136@qq.com");
 //        dockerClient.pullImageCmd("tomcat:latest").exec(new ResultCallback<PullResponseItem>() {
 //            @Override
 //            public void onStart(Closeable closeable) {
@@ -98,6 +98,11 @@ public class Test {
 //        dockerClient.pullImageCmd("busybox:latest").exec(new PullImageResultCallback()).awaitSuccess();
 //        System.out.println("下载完毕!");
 //
+        try {
+            dockerClient.pullImageCmd("nginx:latest").exec(new PullImageResultCallback()).awaitCompletion();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
     }

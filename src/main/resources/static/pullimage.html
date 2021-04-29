@@ -182,38 +182,15 @@
 
 </body>
 
-<div class="am-popup" tabindex="-1" id="my-popup">
-    <div class="am-popup-inner">
-        <div class="am-popup-hd">
-            <h4 class="am-popup-title">...</h4>
-            <span data-am-modal-close
-                  class="am-close">&times;</span>
-        </div>
-        <div class="am-popup-bd">
-            ...
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="loading">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">正在拉取...</div>
+        <div class="am-modal-bd">
+            <span class="am-icon-spinner am-icon-spin"></span>
         </div>
     </div>
 </div>
 
-<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
-    <div class="am-modal-dialog">
-        <div class="am-modal-hd">Modal 标题
-            <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-        </div>
-        <div class="am-modal-bd">
-            Modal 内容。本 Modal 无法通过遮罩层关闭。<br>
-            Modal 内容。本 Modal 无法通过遮罩层关闭。<br>
-            Modal 内容。本 Modal 无法通过遮罩层关闭。<br>
-            Modal 内容。本 Modal 无法通过遮罩层关闭。<br>
-            Modal 内容。本 Modal 无法通过遮罩层关闭。<br>
-            Modal 内容。本 Modal 无法通过遮罩层关闭。<br>
-            Modal 内容。本 Modal 无法通过遮罩层关闭。<br>
-            Modal 内容。本 Modal 无法通过遮罩层关闭。<br>
-            Modal 内容。本 Modal 无法通过遮罩层关闭。<br>
-            Modal 内容。本 Modal 无法通过遮罩层关闭。<br>
-        </div>
-    </div>
-</div>
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/amazeui.datatables.min.js"></script>
     <script src="assets/js/dataTables.responsive.min.js"></script>
@@ -312,22 +289,24 @@
     <script>
         function pullImage(){
             var progress = $.AMUI.progress;
-            progress.start();
+            // progress.start();
+            $('#loading').modal(open);
             $.ajax({
                 //几个参数需要注意一下
                 type: "POST",//方法类型
-                dataType: "json",//预期服务器返回的数据类型
+                dataType: "text",//预期服务器返回的数据类型
                 url: "/image/pull",//url
+                // timeout: 5000,
                 data:$('#pullImage').serialize(),
                 success: function (data) {
                     console.log(data);
-                    $('#doc-modal-1').modal(open);
-                    var searchResult = $('#searchResult');
+                    $('#loading').modal(close);
+                    layer.msg(data);
 
-
-                    progress.done();
+                    // progress.done();
                 }
             });
+
         }
     </script>
 

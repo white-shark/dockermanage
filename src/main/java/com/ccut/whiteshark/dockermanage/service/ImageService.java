@@ -7,12 +7,7 @@ import com.ccut.whiteshark.dockermanage.entity.ImageEntity;
 import com.ccut.whiteshark.dockermanage.entity.UserHost;
 import com.ccut.whiteshark.dockermanage.entity.UserInfo;
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.async.ResultCallback;
-import com.github.dockerjava.api.command.DockerCmdExecFactory;
-import com.github.dockerjava.api.command.PullImageCmd;
 import com.github.dockerjava.api.command.PullImageResultCallback;
-import com.github.dockerjava.api.model.AuthConfig;
-import com.github.dockerjava.api.model.PullResponseItem;
 import com.github.dockerjava.api.model.SearchItem;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,8 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.io.Closeable;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -94,7 +87,12 @@ public class ImageService {
         return array;
     }
 
-    public JSONArray pullImage(String ip, String port, UserInfo userInfo, String imageName) throws InterruptedException {
+    public String pullImage(String ip, String port, UserInfo userInfo, String imageName) {
+        logger.info("拉取镜像" + imageName);
+        String[] names = imageName.split(":");
+        if (names.length<2){
+            imageName = imageName + ":latest";
+        }
         DockerConfig config = new DockerConfig();
         config.setRegistryUser(userInfo.getRegistryUser());
         config.setRegistryPass(userInfo.getRegistryPass());
@@ -104,8 +102,13 @@ public class ImageService {
         HttpClient httpClient = new HttpClient();
         DockerClient dockerClient = httpClient.client(config);
         JSONArray jsonArray = new JSONArray();
-        dockerClient.pullImageCmd(imageName).exec(new PullImageResultCallback()).awaitCompletion();
-        return jsonArray.put("success");
+        try {
+            dockerClient.pullImageCmd(imageName).exec(new PullImageResultCallback()).awaitCompletion();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        logger.info("拉取成功");
+        return "拉取成功";
     }
 
 
