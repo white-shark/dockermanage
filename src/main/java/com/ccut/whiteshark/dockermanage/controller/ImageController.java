@@ -57,10 +57,10 @@ public class ImageController {
     }
 
     @PostMapping(value = "/pull")
-    public String pullImage(String imageName,String ip,HttpSession session){
+    public String pullImage(String imageName,String ip,HttpSession session) throws InterruptedException {
         UserInfo userInfo = userInfoRepository.findByUserName(String.valueOf(session.getAttribute("userName")));
         UserHost userHost = userHostRepository.findByUserNameAndHost(userInfo.getUserName(),ip);
-        JSONArray array =  service.searchImage(userHost.getHost(),userHost.getPort(),userInfo,imageName);
+        JSONArray array =  service.pullImage(userHost.getHost(),userHost.getPort(),userInfo,imageName);
         return array.toString();
     }
 
