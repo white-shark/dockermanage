@@ -70,7 +70,16 @@
             </div>
         </div>
     </div>
+</body>
+
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">正在载入...</div>
+        <div class="am-modal-bd">
+            <span class="am-icon-spinner am-icon-spin"></span>
+        </div>
     </div>
+</div>
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/amazeui.datatables.min.js"></script>
     <script src="assets/js/dataTables.responsive.min.js"></script>
@@ -140,9 +149,9 @@
                                 '<td>'+ info[j].virtualSize +'</td>\n' +
                                 '<td>' +
                                 '    <div class="tpl-table-black-operation">\n' +
-                                '        <a onclick="deleteImg(&quot;'+ info[j].id + '&quot;\,&quot;' + ip +'&quot;)" class="tpl-table-black-operation-del">\n' +
-                                '            <i class="am-icon-trash"></i> 删除\n' +
-                                '        </a>\n' +
+                                '        <a href="javascript:deleteImg(&quot;'+ info[j].id + '&quot;\,&quot;' + ip +'&quot;);"  class="tpl-table-black-operation-del">' +
+                                '            <i class="am-icon-trash"></i> 删除' +
+                                '        </a>' +
                                 '    </div>\n' +
                                 '</td>' +
                                 '</tr>'
@@ -166,17 +175,30 @@
     </script>
 
     <script>
-        function deleteImg(id,ip){
-            $.ajax({
-                //几个参数需要注意一下
-                type: "POST",//方法类型
-                dataType: "text",//预期服务器返回的数据类型
-                url: "/image/delete",//url
-                data:{"id":id,"ip":ip},
-                async: true,
-                success: function (data) {
-                    layer.msg(data);
-                }
+        function deleteImg(id,ip,j){
+            console.log(j)
+
+            layer.msg('确定删除？', {
+                icon: 2,
+                time: 20000, //20s后自动关闭
+                btn: ['确定','取消'],
+                yes: function () {
+                    $.ajax({
+                        //几个参数需要注意一下
+                        type: "POST",//方法类型
+                        dataType: "text",//预期服务器返回的数据类型
+                        url: "/image/delete",//url
+                        data:{"id":id,"ip":ip},
+                        async: true,
+                        success: function (data) {
+                            layer.msg(data);
+                            window.location.reload();
+                        }
+                    });
+                },
+                btn2:function () {
+                    layer.close();
+                },
             });
         }
     </script>
@@ -188,6 +210,6 @@
     </script>
 
 
-</body>
+
 
 </html>
