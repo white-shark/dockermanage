@@ -1,13 +1,11 @@
 package com.ccut.whiteshark.dockermanage.api.http;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,8 +13,10 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  * @date 2021/3/31 10:52 下午
  */
-public class Get {
-    private static final Logger logger = LoggerFactory.getLogger(Get.class);
+public class Post {
+    private static final Logger logger = LoggerFactory.getLogger(Post.class);
+    public static MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
     public static String getInfo(String url){
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(3, TimeUnit.SECONDS)
@@ -25,15 +25,14 @@ public class Get {
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .build();
+        JSONObject jsonObject = new JSONObject();
+        RequestBody body = RequestBody.create(JSON,jsonObject.toString());
         Request request = new Request.Builder()
-                .get()
+                .post(body)
                 .url(url)
                 .build();
         try {
             Response response = client.newCall(request).execute();
-
-
-            System.out.println(response.toString());
             return response.body().string();
         } catch (IOException e) {
             logger.warn("请求" + url + "失败！");

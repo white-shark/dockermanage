@@ -1,26 +1,15 @@
 package com.ccut.whiteshark.dockermanage.client.docker;
 
 import ch.qos.logback.classic.Logger;
-import com.ccut.whiteshark.dockermanage.api.ImageUtils;
-import com.ccut.whiteshark.dockermanage.api.http.Get;
+import com.ccut.whiteshark.dockermanage.exception.MinimesosException;
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.async.ResultCallback;
-import com.github.dockerjava.api.command.ListImagesCmd;
-import com.github.dockerjava.api.command.PullImageResultCallback;
-import com.github.dockerjava.api.model.AuthConfig;
-import com.github.dockerjava.api.model.Info;
-import com.github.dockerjava.api.model.PullResponseItem;
-import com.github.dockerjava.api.model.SearchItem;
-import com.github.dockerjava.core.DockerClientBuilder;
-import com.github.dockerjava.transport.DockerHttpClient;
-import okhttp3.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.github.dockerjava.api.command.LogContainerCmd;
+import com.github.dockerjava.api.model.*;
+import com.github.dockerjava.core.command.LogContainerResultCallback;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.io.Closeable;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,10 +29,10 @@ public class Test {
 //        ListImagesCmd client;
 //        client = dockerClient.listImagesCmd();
 //        System.out.println(client.toString());
-        List<SearchItem> list = dockerClient.searchImagesCmd("tomcata").exec();
-        System.out.println(list.toString());
-        JSONArray array = new JSONArray(list);
-        System.out.println(array.toString());
+//        List<SearchItem> list = dockerClient.searchImagesCmd("tomcata").exec();
+//        System.out.println(list.toString());
+//        JSONArray array = new JSONArray(list);
+//        System.out.println(array.toString());
 
 //        System.out.println(dockerClient.listImagesCmd().withShowAll(true).exec());
 //        dockerClient.authCmd().exec();
@@ -98,12 +87,55 @@ public class Test {
 //        dockerClient.pullImageCmd("busybox:latest").exec(new PullImageResultCallback()).awaitSuccess();
 //        System.out.println("下载完毕!");
 //
+//        try {
+//            dockerClient.pullImageCmd("nginx:latest").exec(new PullImageResultCallback()).awaitCompletion();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        PortBinding portBinding = PortBinding.parse("8080:8080");
+//        PortBinding portBinding1 = PortBinding.parse("8081:8081");
+//
+//        Volume volume1 = new Volume("/app/tomcat");
+//        List<PortBinding> list = new ArrayList<>();
+//        list.add(portBinding);
+//        list.add(portBinding1);
+//        HostConfig hostConfig = HostConfig.newHostConfig()
+//                .withPortBindings(list)
+//                .withBinds(new Bind("/usr/local/docker/tomcat/webapps/ROOT", volume1));
+//
+//        try {
+//            CreateContainerResponse response = dockerClient.createContainerCmd("tomcat")
+//                    .withName("tomcat2")
+//                    .withHostConfig(hostConfig)
+//                    .withExposedPorts(ExposedPort.parse("8080" + "/tcp"))
+////                    .withVolumes(Volume.parse(map))
+//                    .exec();
+//            System.out.println(response.getId());
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        dockerClient.startContainerCmd("").exec();
+
+        String containerId = "22589f35d0d29cded745c0df7dcfa604e59677faead55a67162993f432435d45";
+
+        final List<String> logs = new ArrayList<>();
+
+        LogContainerCmd logContainerCmd = dockerClient.logContainerCmd(containerId);
+        logContainerCmd.withStdOut(true).withStdErr(true);
         try {
-            dockerClient.pullImageCmd("nginx:latest").exec(new PullImageResultCallback()).awaitCompletion();
+            logContainerCmd.exec(new LogContainerResultCallback() {
+                @Override
+                public void onNext(Frame item) {
+                    logs.add(item.toString());
+                }
+            }).awaitCompletion();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new MinimesosException("Failed to retrieve logs of container " + containerId, e);
         }
 
-
+        System.out.println("日志");
+        for (int i = 0; i < logs.size();i++){
+            System.out.println(logs.get(i));
+        }
     }
 }

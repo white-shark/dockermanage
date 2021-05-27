@@ -2,7 +2,6 @@ package com.ccut.whiteshark.dockermanage.api;
 
 import com.ccut.whiteshark.dockermanage.api.http.Delete;
 import com.ccut.whiteshark.dockermanage.api.http.Get;
-import com.ccut.whiteshark.dockermanage.service.ImageService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;

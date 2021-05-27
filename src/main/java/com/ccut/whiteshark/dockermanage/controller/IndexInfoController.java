@@ -21,11 +21,12 @@ public class IndexInfoController {
 
     @Autowired
     UserHostRepository userHostRepository;
+    @Autowired
+    IndexInfoService service;
 
     @PostMapping(value = "/getIndexInfo")
     public String getInfo(HttpSession session){
         List<UserHost> list = userHostRepository.findAllByUserName((String) session.getAttribute("userName"));
-        IndexInfoService service = new IndexInfoService();
         JSONObject jsonObject = service.getInfo(list);
         return jsonObject.toString();
     }

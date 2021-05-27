@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="/assets/layui/css/layui.css">
     <script src="assets/js/jquery.min.js"></script>
-
+    <script src="/assets/js/gVerify.js"></script>
 </head>
 
 <body data-type="login">
@@ -63,14 +63,15 @@
                         <input type="password" class="tpl-form-input" id="confirm-password" placeholder="再次输入密码">
                     </div>
 
-<!--                    <div class="am-form-group tpl-login-remember-me">-->
-<!--                        <input id="remember-me" type="checkbox">-->
-<!--                        <label for="remember-me">-->
-<!--       -->
-<!--                        我已阅读并同意 <a href="javascript:;">《用户注册协议》</a> -->
-<!--                         </label>-->
+                    <div class="am-form-group">
+                        <input type="text" class="tpl-form-input" id="code_input" name="code_input" placeholder="验证码">
+                    </div>
 
-<!--                    </div>-->
+                    <br>
+                    <div class="am-form-group">
+                        <div id="v_container" style="width: 200px;height: 50px;"></div>
+                    </div>
+                    <br>
 
                     <div class="am-form-group">
 
@@ -85,10 +86,11 @@
     <script src="assets/js/app.js"></script>
     <script src="/assets/layui/layui.js"></script>
     <script>
-
+        var verifyCode = new GVerify("v_container");
         const layer = layui.layer, form = layui.form;
 
         function SignIn(){
+            var res = verifyCode.validate(document.getElementById("code_input").value);
             const confirmPassword = document.getElementById('confirm-password').value;
             const password = document.getElementById('password').value;
             const email = document.getElementById('email').value;
@@ -100,28 +102,35 @@
                 layer.msg('请输入用户名');
             }
             else if (confirmPassword === password && password !==''){
-                $.ajax({
-                    //几个参数需要注意一下
-                    type: "POST",//方法类型
-                    dataType: "text",//预期服务器返回的数据类型
-                    url: "/user/signup" ,//url
-                    data: $('#signup').serialize(),
-                    success: function (data) {
-                        console.log(data);//打印服务端返回的数据(调试用)
-                        if (data==="index") {
-                            layer.msg('注册成功');
-                            setTimeout(function () {
-                                window.location.href='/login.html';
-                            },1000);
-                        }
-                        else if (data==="exists"){
-                            layer.msg('用户名已存在');
-                        }
-                        else {
-                            layer.msg('Error');
-                        }
-                    },
-                });
+
+                if(res){
+                    $.ajax({
+                        //几个参数需要注意一下
+                        type: "POST",//方法类型
+                        dataType: "text",//预期服务器返回的数据类型
+                        url: "/user/signup" ,//url
+                        data: $('#signup').serialize(),
+                        success: function (data) {
+                            console.log(data);//打印服务端返回的数据(调试用)
+                            if (data==="index") {
+                                layer.msg('注册成功');
+                                setTimeout(function () {
+                                    window.location.href='/login.html';
+                                },1000);
+                            }
+                            else if (data==="exists"){
+                                layer.msg('用户名已存在');
+                            }
+                            else {
+                                layer.msg('Error');
+                            }
+                        },
+                    });
+                }
+                else{
+                    layer.msg('验证码错误');
+                }
+
             }
             else {
                 layer.msg('Error');

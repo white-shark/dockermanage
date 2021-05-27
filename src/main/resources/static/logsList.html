@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="assets/css/app.css">
+    <script src="assets/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/layui/css/layui.css">
+    <script src="/assets/layui/layui.js"></script>
+
+</head>
+
+<body data-type="index">
+    <script src="assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+        <!-- 风格切换 -->
+        <div class="tpl-skiner">
+            <div class="tpl-skiner-toggle am-icon-cog">
+            </div>
+            <div class="tpl-skiner-content">
+                <div class="tpl-skiner-content-title">
+                    选择主题
+                </div>
+                <div class="tpl-skiner-content-bar">
+                    <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                    <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                </div>
+            </div>
+        </div>
+        <!--公共部分引入-->
+        <div id="public">
+        </div>
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+
+            <div class="container-fluid am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 容器列表 <small>containers</small></div>
+                        <p class="page-header-description">您可以看到您的每一台主机上的容器。</p>
+                    </div>
+                    <div class="am-u-lg-3 tpl-index-settings-button">
+                        <button type="button" onclick="creatContainer()" class="page-header-button"><span class="am-icon-paint-brush"></span> 创建容器 </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row-content am-cf">
+                <div id="lists">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">正在载入...</div>
+        <div class="am-modal-bd">
+            <span class="am-icon-spinner am-icon-spin"></span>
+        </div>
+    </div>
+</div>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/amazeui.datatables.min.js"></script>
+    <script src="assets/js/dataTables.responsive.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <!--公共部分引入-->
+
+    <script>
+        var progress = $.AMUI.progress;
+        progress.start();
+    </script>
+
+    <script>
+        $('#public').load('public.html',function(responseTxt,statusTxt,xhr){
+            $('#logs').attr("class","active");
+        })
+
+        const layer = layui.layer, form = layui.form;
+
+    </script>
+    <script>
+
+        getInfo();
+        function getInfo(){
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/containers/getList",//url
+                async:true,
+                success: function (data) {
+                    console.log(data);
+                    var lists = $('#lists')
+                    var list = data;
+                    for (var i = 0; i < list.length;i++){
+                        var ips = list[i];
+                        var ip = ips[0].ip;
+                        var info = list[i];
+                        lists.append(
+                            '                <div class="row">\n' +
+                            '                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">\n' +
+                            '                        <div class="widget am-cf">\n' +
+                            '                            <div class="widget-head am-cf">\n' +
+                            '                                <div class="widget-title am-fl">'+ ip +'</div>\n' +
+                            '                                <div class="widget-function am-fr">\n' +
+                            '                                    <a href="javascript:;" class="am-icon-cog"></a>\n' +
+                            '                                </div>\n' +
+                            '                            </div>\n' +
+                            '                            <div class="widget-body  widget-body-lg am-fr">\n' +
+                            '                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " >\n' +
+                            '                                    <thead>\n' +
+                            '                                    <tr>\n' +
+                            '                                        <th>id</th>\n' +
+                            '                                        <th>容器名称</th>\n' +
+                            '                                        <th>镜像名称</th>\n' +
+                            '                                        <th>状态</th>\n' +
+                            '                                        <th>运行情况</th>\n' +
+                            '                                        <th>操作</th>\n' +
+                            '                                    </tr>\n' +
+                            '                                    </thead>\n' +
+                            '                                    <tbody id="hostList'+ i +'\">\n'
+                        );
+                        for (var j = 0; j < info.length;j++){
+                            var hostlist = $('#hostList'+i);
+                            hostlist.append(
+                                '<tr>' +
+                                '<td><a>'+ info[j].id +'</a></td>\n' +
+                                '<td>'+ info[j].name +'</td>\n' +
+                                '<td>'+ info[j].imageName +'</td>\n' +
+                                '<td>'+ info[j].state +'</td>\n' +
+                                '<td>'+ info[j].status +'</td>\n' +
+                                '<td>' +
+                                '    <div class="tpl-table-black-operation">\n' +
+                                '        <a href="javascript:getLog(&quot;'+ info[j].id + '&quot;\,&quot;' + ip +'&quot;);">\n' +
+                                '            <i class="am-icon-pencil"></i> 日志' +
+                                '         </a>' +
+                                '    </div>\n' +
+                                '</td>' +
+                                '</tr>'
+                            );
+
+                        }
+                        lists.append(
+                            '                                    </tbody>\n' +
+                            '                                </table>\n' +
+                            '\n' +
+                            '                            </div>\n' +
+                            '                        </div>\n' +
+                            '                    </div>\n' +
+                            '                </div>'
+                        )
+                    }
+                    progress.done();
+                },
+            });
+        }
+
+    </script>
+
+
+    <script>
+    function getLog(id,ip){
+        window.location.href = 'logs.html?id=' + id + '&ip=' + ip;
+    }
+</script>
+
+
+    <script>
+        function creatContainer(){
+            window.location.href = 'creatcontainer.html';
+        }
+    </script>
+
+
+
+
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="assets/css/app.css">
+    <script src="assets/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/layui/css/layui.css">
+    <script src="/assets/layui/layui.js"></script>
+
+</head>
+
+<body data-type="index">
+    <script src="assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+        <!-- 风格切换 -->
+        <div class="tpl-skiner">
+            <div class="tpl-skiner-toggle am-icon-cog">
+            </div>
+            <div class="tpl-skiner-content">
+                <div class="tpl-skiner-content-title">
+                    选择主题
+                </div>
+                <div class="tpl-skiner-content-bar">
+                    <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                    <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                </div>
+            </div>
+        </div>
+        <!--公共部分引入-->
+        <div id="public">
+        </div>
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+
+            <div class="container-fluid am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 镜像拉取 <small>Pull Image</small></div>
+                        <p class="page-header-description">您可以看到您的每一台主机上的镜像。</p>
+                    </div>
+                    <div class="am-u-lg-3 tpl-index-settings-button">
+                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 镜像列表</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row-content am-cf">
+
+                <div class="row">
+
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">日志信息</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
+                            </div>
+                            <div class="widget-body  widget-body-lg am-fr">
+
+                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                                    <tbody id="logsInfo">
+                                    <!-- more data -->
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="lists">
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="loading">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">正在拉取...</div>
+        <div class="am-modal-bd">
+            <span class="am-icon-spinner am-icon-spin"></span>
+        </div>
+    </div>
+</div>
+
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/amazeui.datatables.min.js"></script>
+    <script src="assets/js/dataTables.responsive.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <!--公共部分引入-->
+
+
+    <script>
+        $('#public').load('public.html',function(responseTxt,statusTxt,xhr){
+            $('#logs').attr("class","active");
+        })
+
+        const layer = layui.layer, form = layui.form;
+
+    </script>
+
+<script>
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    var id = vars[0].split("=")[1];
+    var ip = vars[1].split("=")[1];
+</script>
+
+    <script>
+        getLogs();
+        function getLogs(){
+            var progress = $.AMUI.progress;
+            progress.start();
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/containers/getLogs",//url
+                data:{"id":id,"ip":ip},
+                success: function (data) {
+                    var logsInfo = $('#logsInfo');
+                    logsInfo.html('');
+                    for (var j = 0; j < data.length;j++){
+                        logsInfo.append(
+                            '<tr>' +
+                            '<td>'+ data[j] +'</td>\n' +
+                            '</tr>'
+                        );
+                    }
+                    progress.done();
+                }
+            });
+        }
+
+    </script>
+
+</html>

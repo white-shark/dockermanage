@@ -63,23 +63,23 @@
             </div>
 
             <div class="row-content am-cf">
-
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">拉取镜像</div>
+                                <div class="widget-title am-fl">创建镜像</div>
                                 <div class="widget-function am-fr">
                                     <a href="javascript:;" class="am-icon-cog"></a>
                                 </div>
                             </div>
                             <div class="widget-body am-fr">
-                                <form id="pullImage" class="am-form-inline tpl-form-line-form">
+
+                                <form id="CreatContainer" class="am-form tpl-form-line-form">
                                     <div class="am-form-group">
-                                        <label for="imageName" class="am-u-sm-3 am-form-label">镜像名 <span class="tpl-form-line-small-title">Image Name</span></label>
+                                        <label for="containerName" class="am-u-sm-3 am-form-label">容器名 <span class="tpl-form-line-small-title">Container Name</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="imageName" name="imageName" placeholder="镜像名">
-                                            <small>请输入镜像名</small>
+                                            <input type="text" class="tpl-form-input" name="containerName" id="containerName" placeholder="请输入容器名">
+                                            <small>给容器起个名吧</small>
                                         </div>
                                     </div>
                                     <div class="am-form-group">
@@ -88,90 +88,59 @@
                                             <select id="ip" name="ip" data-am-selected="{searchBox: 1}" style="display: none;">
 
                                             </select>
-
                                         </div>
                                     </div>
+
+                                    <div class="am-form-group">
+                                        <label for="imageName" class="am-u-sm-3 am-form-label">镜像名 <span class="tpl-form-line-small-title">Image Name</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" name="imageName" id="imageName" placeholder="请输入镜像名">
+                                            <small>请在镜像列表中查看镜像名</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="conPort" class="am-u-sm-3 am-form-label">端口映射 <span class="tpl-form-line-small-title">容器端口</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" name="conPort" id="conPort" placeholder="请输入镜像名">
+                                            <small>多个端口请用逗号隔开</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="hostPort" class="am-u-sm-3 am-form-label">端口映射 <span class="tpl-form-line-small-title">主机端口</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" name="hostPort" id="hostPort" placeholder="请输入镜像名">
+                                            <small>请按照对应关系填写</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="conPath" class="am-u-sm-3 am-form-label">外挂数据卷 <span class="tpl-form-line-small-title">容器路径</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" name="conPath" id="conPath" placeholder="请输入镜像名">
+                                            <small>多个路径请用逗号隔开</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="hostPath" class="am-u-sm-3 am-form-label">外挂数据卷 <span class="tpl-form-line-small-title">主机路径</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" name="hostPath" id="hostPath" placeholder="请输入镜像名">
+                                            <small>请按照对应关系填写</small>
+                                        </div>
+                                    </div>
+
+
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <button type="button" onclick="pullImage()" class="am-btn am-btn-primary tpl-btn-bg-color-success ">拉取镜像</button>
+                                            <button type="button" onclick="creatCon()" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                        <div class="widget am-cf">
-                            <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">搜索镜像</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
-                            </div>
-                            <div class="widget-body am-fr">
-                                <form id="searchImage" class="am-form-inline tpl-form-line-form">
-                                    <div class="am-form-group">
-                                        <label for="search" class="am-u-sm-3 am-form-label">搜索 <span class="tpl-form-line-small-title">Search</span></label>
-                                        <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="search" name="search" placeholder="搜索">
-                                            <small>请输入搜索内容</small>
-                                        </div>
-                                    </div>
-                                    <div class="am-form-group">
-                                        <label for="ip" class="am-u-sm-3 am-form-label">Ip <span class="tpl-form-line-small-title">Address</span></label>
-                                        <div class="am-u-sm-9">
-                                            <select id="host" name="ip" data-am-selected="{searchBox: 1}" style="display: none;">
-
-                                            </select>
-
-                                        </div>
-                                    </div>
-                                    <div class="am-form-group">
-                                        <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <button type="button" onclick="searchImage()" class="am-btn am-btn-primary tpl-btn-bg-color-success ">搜索</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                        <div class="widget am-cf">
-                            <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">搜索结果</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
-                            </div>
-                            <div class="widget-body  widget-body-lg am-fr">
-
-                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
-                                    <thead>
-                                    <tr>
-                                        <th>序号</th>
-                                        <th>使用量</th>
-                                        <th>名称</th>
-                                        <th>官方的</th>
-                                        <th>描述</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="searchResult">
-                                    <!-- more data -->
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="lists">
-
                 </div>
 
             </div>
@@ -184,7 +153,7 @@
 
 <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="loading">
     <div class="am-modal-dialog">
-        <div class="am-modal-hd">正在拉取...</div>
+        <div class="am-modal-hd">容器创建中...</div>
         <div class="am-modal-bd">
             <span class="am-icon-spinner am-icon-spin"></span>
         </div>
@@ -200,7 +169,7 @@
 
     <script>
         $('#public').load('public.html',function(responseTxt,statusTxt,xhr){
-            $('#imagelist').attr("class","active");
+            $('#containers').attr("class","active");
         })
 
         const layer = layui.layer, form = layui.form;
@@ -218,14 +187,8 @@
                 url: "/host/getIpList",//url
                 async:true,
                 success: function (data) {
-                    console.log(data);
-                    var host = $('#host');
                     var ip = $('#ip');
                     for (var j = 0; j < data.length;j++){
-                        console.log(data[j]);
-                        host.append(
-                            '<option value="'+data[j] +'">'+ data[j] +'</option>'
-                        );
                         ip.append(
                             '<option value="'+data[j] +'">'+ data[j] +'</option>'
                         );
@@ -236,58 +199,9 @@
         }
     </script>
 
-    <script>
-        function searchImage(){
-            var progress = $.AMUI.progress;
-            progress.start();
-            var search = document.getElementById('search').value;
-            $.ajax({
-                //几个参数需要注意一下
-                type: "POST",//方法类型
-                dataType: "json",//预期服务器返回的数据类型
-                url: "/image/search",//url
-                data:$('#searchImage').serialize(),
-                success: function (data) {
-                    console.log(data);
-                    var searchResult = $('#searchResult');
-                    searchResult.html('');
-                    for (var j = 0; j < data.length;j++){
-
-                        searchResult.append(
-                            '<tr>' +
-                            '<td>'+ j +'</td>' +
-                            '<td>'+ data[j].starCount +'</td>\n' +
-                            '<td>'+ data[j].name +'</td>\n' +
-                            '<td>'+ data[j].official +'</td>\n' +
-                            '<td>'+ data[j].description +'</td>\n' +
-                            '</tr>'
-                        );
-                    }
-                    progress.done();
-                }
-            });
-        }
-
-    </script>
 
     <script>
-        function deleteImg(id,ip){
-            $.ajax({
-                //几个参数需要注意一下
-                type: "POST",//方法类型
-                dataType: "text",//预期服务器返回的数据类型
-                url: "/image/delete",//url
-                data:{"id":id,"ip":ip},
-                async: true,
-                success: function (data) {
-                    layer.msg(data);
-                }
-            });
-        }
-    </script>
-
-    <script>
-        function pullImage(){
+        function creatCon(){
             var progress = $.AMUI.progress;
             // progress.start();
             $('#loading').modal(open);
@@ -295,9 +209,9 @@
                 //几个参数需要注意一下
                 type: "POST",//方法类型
                 dataType: "text",//预期服务器返回的数据类型
-                url: "/image/pull",//url
+                url: "/containers/creatCon",//url
                 // timeout: 5000,
-                data:$('#pullImage').serialize(),
+                data:$('#CreatContainer').serialize(),
                 success: function (data) {
                     $('#loading').modal(close);
                     layer.msg(data);
