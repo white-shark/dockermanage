@@ -102,7 +102,7 @@
                                     <div class="am-form-group">
                                         <label for="conPort" class="am-u-sm-3 am-form-label">端口映射 <span class="tpl-form-line-small-title">容器端口</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" name="conPort" id="conPort" placeholder="请输入镜像名">
+                                            <input type="text" class="tpl-form-input" name="conPort" id="conPort" placeholder="请输入容器端口">
                                             <small>多个端口请用逗号隔开</small>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                     <div class="am-form-group">
                                         <label for="hostPort" class="am-u-sm-3 am-form-label">端口映射 <span class="tpl-form-line-small-title">主机端口</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" name="hostPort" id="hostPort" placeholder="请输入镜像名">
+                                            <input type="text" class="tpl-form-input" name="hostPort" id="hostPort" placeholder="请输入主机端口">
                                             <small>请按照对应关系填写</small>
                                         </div>
                                     </div>
@@ -118,7 +118,7 @@
                                     <div class="am-form-group">
                                         <label for="conPath" class="am-u-sm-3 am-form-label">外挂数据卷 <span class="tpl-form-line-small-title">容器路径</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" name="conPath" id="conPath" placeholder="请输入镜像名">
+                                            <input type="text" class="tpl-form-input" name="conPath" id="conPath" placeholder="请输入容器内路径">
                                             <small>多个路径请用逗号隔开</small>
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
                                     <div class="am-form-group">
                                         <label for="hostPath" class="am-u-sm-3 am-form-label">外挂数据卷 <span class="tpl-form-line-small-title">主机路径</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" name="hostPath" id="hostPath" placeholder="请输入镜像名">
+                                            <input type="text" class="tpl-form-input" name="hostPath" id="hostPath" placeholder="请输入主机路径">
                                             <small>请按照对应关系填写</small>
                                         </div>
                                     </div>
@@ -215,6 +215,9 @@
                 success: function (data) {
                     $('#loading').modal(close);
                     layer.msg(data);
+                    setTimeout(function () {
+                        window.location.href='containers.html';
+                    },1000);
                 }
             });
 
