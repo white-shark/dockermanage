@@ -52,4 +52,9 @@ public class ContainerController {
         return service.ContainerLog(id,ip,String.valueOf(session.getAttribute("userName")));
     }
 
+    @PostMapping(value = "/command")
+    public List<String> command(String ip, String id, String command, HttpSession session){
+        return service.command(id,ip,String.valueOf(session.getAttribute("userName")),command);
+    }
+
 }

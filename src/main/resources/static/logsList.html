@@ -155,6 +155,9 @@
                                 '        <a href="javascript:getLog(&quot;'+ info[j].id + '&quot;\,&quot;' + ip +'&quot;);">\n' +
                                 '            <i class="am-icon-pencil"></i> 日志' +
                                 '         </a>' +
+                                '        <a href="javascript:command(&quot;'+ info[j].id + '&quot;\,&quot;' + ip +'&quot;);">\n' +
+                                '            <i class="am-icon-pencil"></i> 命令' +
+                                '         </a>' +
                                 '    </div>\n' +
                                 '</td>' +
                                 '</tr>'
@@ -182,6 +185,9 @@
     <script>
     function getLog(id,ip){
         window.location.href = 'logs.html?id=' + id + '&ip=' + ip;
+    }
+    function command(id,ip){
+        window.location.href = 'command.html?id=' + id + '&ip=' + ip;
     }
 </script>
 

@@ -13,9 +13,11 @@ import com.ccut.whiteshark.dockermanage.repository.UserInfoRepository;
 import com.ccut.whiteshark.dockermanage.service.ContainersService;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.CreateContainerResponse;
+import com.github.dockerjava.api.command.ExecCreateCmdResponse;
 import com.github.dockerjava.api.command.LogContainerCmd;
 import com.github.dockerjava.api.exception.InternalServerErrorException;
 import com.github.dockerjava.api.model.*;
+import com.github.dockerjava.core.command.ExecStartResultCallback;
 import com.github.dockerjava.core.command.LogContainerResultCallback;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +26,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -180,5 +184,37 @@ public class ContainersServiceImpl implements ContainersService {
         }
 
         return logs;
+    }
+
+    @Override
+    public List<String> command(String id, String ip, String userName,String command) {
+        UserHost userHost = userHostRepository.findByUserNameAndHost(userName,ip);
+        UserInfo userInfo = userInfoRepository.findByUserName(userName);
+
+        DockerConfig config = new DockerConfig();
+        config.setRegistryUser(userInfo.getRegistryUser());
+        config.setRegistryPass(userInfo.getRegistryPass());
+        config.setRegistryMail(userInfo.getRegistryMail());
+        config.setRegistryUrl(userInfo.getDockerHub());
+        config.setHost("tcp://"+ userHost.getHost()  + ":" + userHost.getPort());
+        HttpClient httpClient = new HttpClient();
+        DockerClient dockerClient = httpClient.client(config);
+        ExecCreateCmdResponse execCreateCmdResponse = dockerClient.execCreateCmd(id)
+                .withAttachStdout(true)
+                .withAttachStderr(true)
+                .withCmd("bash", "-c", command)
+                .exec();
+// 执行命令
+        ByteArrayOutputStream stdout = new ByteArrayOutputStream();
+        ByteArrayOutputStream stderr = new ByteArrayOutputStream();
+        try {
+            dockerClient.execStartCmd(execCreateCmdResponse.getId()).exec(
+                    new ExecStartResultCallback(stdout, stderr)).awaitCompletion();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String res = stdout.toString();
+        String[] ress = res.split("\\n");
+        return Arrays.asList(ress);
     }
 }
